@@ -94,7 +94,7 @@ A:active {
 </head>
 <body>
 <FORM id=adminlogin  method=post
-	name=adminlogin action="${pageContext.request.contextPath}/user/login.do"  >
+	name=adminlogin action="${pageContext.request.contextPath}/page/doLogin.jsp"  >
 <DIV></DIV>
 <TABLE style="MARGIN: auto; WIDTH: 100%; HEIGHT: 100%" border=0
 	cellSpacing=0 cellPadding=0>
@@ -115,10 +115,10 @@ A:active {
 			<TABLE border=0 cellSpacing=0 cellPadding=0 width="100%">
 				<TBODY>
 					<TR>
-						<TD style="HEIGHT: 45px"><INPUT type="text" class=input value="${user.userName }" name="userName" id="userName"></TD>
+						<TD style="HEIGHT: 45px"><INPUT type="text" class=input value="${user.name }" name="name" id="userName"></TD>
 					</TR>
 					<TR>
-						<TD><INPUT type="password" class=input value="${user.password }" name="password" id="password"/></TD>
+						<TD><INPUT type="password" class=input value="${user.pass }" name="pass" id="password"/></TD>
 					</TR>
 					<TR>
 						<td>

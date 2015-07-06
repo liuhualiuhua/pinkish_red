@@ -1,12 +1,162 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
-  <display-name>pinkish_red</display-name>
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-  </welcome-file-list>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+	<display-name>pinkish_red</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+	<servlet>
+		<servlet-name>UserList</servlet-name>
+		<servlet-class>web.UserList</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>UserDelete.do</servlet-name>
+		<servlet-class>web.UserDelete</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>UserAdd</servlet-name>
+		<servlet-class>web.UserAdd</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>NewsList</servlet-name>
+		<servlet-class>web.NewsList</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>NewsAdd</servlet-name>
+		<servlet-class>web.NewsAdd</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>NewsDelete</servlet-name>
+		<servlet-class>web.NewsDelete</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>TopicList</servlet-name>
+		<servlet-class>web.TopicList</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>TopicAdd</servlet-name>
+		<servlet-class>web.TopicAdd</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>TopicDelete</servlet-name>
+		<servlet-class>web.TopicDelete</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>GoodsList</servlet-name>
+		<servlet-class>web.GoodsList</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>GoodsDelete</servlet-name>
+		<servlet-class>web.GoodsDelete</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>GoodsAdd</servlet-name>
+		<servlet-class>web.GoodsAdd</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>NoteList</servlet-name>
+		<servlet-class>web.NoteList</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>NoteAdd</servlet-name>
+		<servlet-class>web.NoteAdd</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>NoteCount</servlet-name>
+		<servlet-class>web.NoteCount</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>NoteUsersList</servlet-name>
+		<servlet-class>web.NoteUsersList</servlet-class>
+	</servlet>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<servlet-mapping>
+		<servlet-name>UserList</servlet-name>
+		<url-pattern>/UserList</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UserDelete.do</servlet-name>
+		<url-pattern>/UserDelete</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UserAdd</servlet-name>
+		<url-pattern>/UserAdd</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>NewsList</servlet-name>
+		<url-pattern>/NewsList</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>NewsAdd</servlet-name>
+		<url-pattern>/NewsAdd</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>NewsDelete</servlet-name>
+		<url-pattern>/NewsDelete</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>TopicList</servlet-name>
+		<url-pattern>/TopicList</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>TopicAdd</servlet-name>
+		<url-pattern>/TopicAdd</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>TopicDelete</servlet-name>
+		<url-pattern>/TopicDelete</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>GoodsList</servlet-name>
+		<url-pattern>/GoodsList</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>GoodsDelete</servlet-name>
+		<url-pattern>/GoodsDelete</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>GoodsAdd</servlet-name>
+		<url-pattern>/GoodsAdd</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>NoteList</servlet-name>
+		<url-pattern>/NoteList</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>NoteAdd</servlet-name>
+		<url-pattern>/NoteAdd</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>NoteCount</servlet-name>
+		<url-pattern>/NoteCount</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>NoteUsersList</servlet-name>
+		<url-pattern>/NoteUsersList</url-pattern>
+	</servlet-mapping>
+
+
+
 </web-app>

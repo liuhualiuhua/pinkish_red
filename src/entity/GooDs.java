@@ -1,6 +1,6 @@
 package entity;
 
-public class GooDs {
+public class Goods {
 	private int goodsId;
 	private String name;
 	private String brand; 

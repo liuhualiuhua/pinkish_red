@@ -1,6 +1,6 @@
 package entity;
 
-public class MessaGe {
+public class Message {
 	private int messageId;
 	private String content;
 	private String postTime;
