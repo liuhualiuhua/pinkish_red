@@ -70,6 +70,8 @@ function searchGoods(){
 
 function openGoodsAddDialog(){
 	$("#dlg").dialog("open").dialog("setTitle","添加商品信息");
+	$("#picToBe").html("");
+	$("#picToBe").attr("href","");
 	url="${pageContext.request.contextPath}/GoodsAdd";
 }
 function openGoodsModifyDialog(){
@@ -81,6 +83,10 @@ function openGoodsModifyDialog(){
 		 var row=selectedRows[0];
 		 $("#dlg").dialog("open").dialog("setTitle","编辑商品信息");
 		 editor1.html(row.description);
+		 changeVal(row.pic);
+		 $("#picToBe").html("点击查看已存在图片");
+		 $("#picToBe").attr("href","/pinkish_red/"+row.pic);
+		 
 		 $("#fm").form("load",row);
 		 url="${pageContext.request.contextPath}/GoodsAdd?goodsId="+row.goodsId;
 	 }
@@ -196,7 +202,12 @@ function setImagePreview() {
 	} 
 	return true; 
 } 
-</script> 
+</script>
+<script type="text/javascript">
+function changeVal(stext){
+	$("#pic").val(stext);
+}
+</script>
 
   </head>
   
@@ -213,8 +224,8 @@ function setImagePreview() {
 				<th field="brand" width="20" align="center">品牌</th>
 				<th field="type" width="20" align="center">型号</th>
 				<th field="description" width="30" align="center">描述</th>
-				<th field="price" width="20" align="center">价格</th>
-				<th field="pic" width="20" align="center">图片</th>
+				<th field="price" width="10" align="center">价格</th>
+				<th field="pic" width="30" align="center">图片</th>
 			</tr>
 		</thead>
 	</table>
@@ -270,7 +281,10 @@ function setImagePreview() {
    		</tr>
    		<tr>
    			<td>图片URL：</td>
-   			<td colspan="3"><input type="text" id="pic" name="pic" class="easyui-validatebox" autocomplete="off" required="true"/>&nbsp;<font color="red">*</font></td>
+   			<td colspan="3">
+   				<a  id="picToBe" href="" target="_blank"></a>
+	   			<input type="hidden" id="pic" name="pic"  autocomplete="off" />
+   			</td>
    		</tr>
    		<tr>
    			<td>图片文件：</td>

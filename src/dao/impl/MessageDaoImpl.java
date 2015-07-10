@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringEscapeUtils;
 
+import util.StringUtil;
 import dao.MessageDao;
 import entity.Message;
 import entity.PageBean;
@@ -36,10 +37,10 @@ public class MessageDaoImpl extends BaseDao implements MessageDao {
 		if (message.getUserId() != 0) {
 			sb.append(" and userId =" + message.getUserId() + " ");
 		}
-		if (message.getPostTime() != null) {
+		if (StringUtil.isNotEmpty(message.getPostTime())) {
 			sb.append(" and postTime > '" + message.getPostTime() + "' ");
 		}
-		if (map != null && map.get("postTime2") != null) {
+		if (map != null && StringUtil.isNotEmpty((String) map.get("postTime2"))) {
 			sb.append(" and postTime < '" + map.get("postTime2") + "' ");
 		}
 		if (message.getMessageId() != 0) {
@@ -55,10 +56,10 @@ public class MessageDaoImpl extends BaseDao implements MessageDao {
 		if (message.getUserId() != 0) {
 			sb.append(" and userId =" + message.getUserId() + " ");
 		}
-		if (message.getPostTime() != null) {
+		if (StringUtil.isNotEmpty(message.getPostTime())) {
 			sb.append(" and postTime > '" + message.getPostTime() + "' ");
 		}
-		if (map != null && map.get("postTime2") != null) {
+		if (map != null && StringUtil.isNotEmpty((String) map.get("postTime2"))) {
 			sb.append(" and postTime < '" + map.get("postTime2") + "' ");
 		}
 		if (message.getMessageId() != 0) {
