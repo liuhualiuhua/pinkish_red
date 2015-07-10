@@ -76,6 +76,41 @@
 		<servlet-name>NoteUsersList</servlet-name>
 		<servlet-class>web.NoteUsersList</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>NoteList4UI</servlet-name>
+		<servlet-class>web.NoteList4UI</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>NoteDelete</servlet-name>
+		<servlet-class>web.NoteDelete</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>MessageList4UI</servlet-name>
+		<servlet-class>web.MessageList4UI</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>MessageAdd</servlet-name>
+		<servlet-class>web.MessageAdd</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>MessageDelete</servlet-name>
+		<servlet-class>web.MessageDelete</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>MessageUnReadList</servlet-name>
+		<servlet-class>web.MessageUnReadList</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>PassChange</servlet-name>
+		<servlet-class>web.PassChange</servlet-class>
+	</servlet>
+
+
+
+
+
+
+
 
 
 
@@ -155,6 +190,34 @@
 	<servlet-mapping>
 		<servlet-name>NoteUsersList</servlet-name>
 		<url-pattern>/NoteUsersList</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>NoteList4UI</servlet-name>
+		<url-pattern>/NoteList4UI</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>NoteDelete</servlet-name>
+		<url-pattern>/NoteDelete</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>MessageList4UI</servlet-name>
+		<url-pattern>/MessageList4UI</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>MessageAdd</servlet-name>
+		<url-pattern>/MessageAdd</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>MessageDelete</servlet-name>
+		<url-pattern>/MessageDelete</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>MessageUnReadList</servlet-name>
+		<url-pattern>/MessageUnReadList</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>PassChange</servlet-name>
+		<url-pattern>/PassChange</url-pattern>
 	</servlet-mapping>
 
 

@@ -213,4 +213,24 @@ public class UsersDaoImpl extends BaseDao implements UsersDao {
 		return u;
 	}
 
+	@Override
+	public int changePass(Users users) {
+		int result = 0;
+		try {
+			conn = super.getConn();
+			String sql = "update USERS set pass=? where userId=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, users.getPass());
+			pstmt.setInt(2, users.getUserId());
+			System.out.println(sql);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			super.closeAll(conn, pstmt, rs);
+		}
+
+		return result;
+	}
+
 }

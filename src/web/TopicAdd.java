@@ -52,6 +52,7 @@ public class TopicAdd extends HttpServlet {
 		topic.setContent(content);
 		topic.setUserId(userId);
 		topic.setPostTime(postTime);
+		topic.setUserName(user.getName());
 
 		TopicDao topicDao = new TopicDaoImpl();
 		JSONObject obj = new JSONObject();

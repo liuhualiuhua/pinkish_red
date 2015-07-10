@@ -15,5 +15,7 @@ public interface NewsDao {
 	public int addNews(News news);
 
 	public int updateNews(News news);
+	
+	public News get(int newsId,String abc);
 
 }

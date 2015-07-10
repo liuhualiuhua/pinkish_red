@@ -19,6 +19,45 @@
 	src="${pageContext.request.contextPath}/jquery-easyui-1.3.3/jquery.easyui.min.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/jquery-easyui-1.3.3/locale/easyui-lang-zh_CN.js"></script>
+<link rel="stylesheet" href="../kindeditor/themes/default/default.css" />
+<link rel="stylesheet" href="../kindeditor/plugins/code/prettify.css" />
+<script charset="utf-8" src="../kindeditor/kindeditor.js"></script>
+<script charset="utf-8" src="../kindeditor/lang/zh_CN.js"></script>
+<script charset="utf-8" src="../kindeditor/plugins/code/prettify.js"></script>
+<script type="text/javascript">
+var editor1;
+KindEditor.ready(function(K) {
+				editor1 = K.create('textarea[name="content"]', {
+				cssPath : '../kindeditor/plugins/code/prettify.css',
+				uploadJson : '../kindeditor/jsp/upload_json.jsp',
+				fileManagerJson : '../kindeditor/jsp/file_manager_json.jsp',
+				allowFileManager : true,
+				allowImageUpload : true,
+				items : [
+						'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+						'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+						'insertunorderedlist', '|', 'emoticons', 'image', 'link'],
+				afterCreate : function() {
+					var self = this;
+					K.ctrl(document, 13, function() {
+						self.sync();
+						document.forms['example'].submit();
+					});
+					K.ctrl(self.edit.doc, 13, function() {
+						self.sync();
+						document.forms['example'].submit();
+					});
+				},
+				afterChange: function () {
+         			this.sync();
+        		},
+        		afterBlur: function () {
+        			this.sync(); 
+        		}
+			});
+			prettyPrint();
+		});
+</script>
 <script type="text/javascript">
 	var url;
 	
@@ -43,6 +82,7 @@
 			 return;
 		 }
 		 var row=selectedRows[0];
+		 editor1.html(row.content);
 		 $("#dlg").dialog("open").dialog("setTitle","编辑留言/回复信息");
 		 $("#fm").form("load",row);
 		 url="${pageContext.request.contextPath}/TopicAdd?topicId="+row.topicId;
@@ -55,6 +95,7 @@
 		return;
 		}
 		var row=selectedRows[0];
+		//editor1.html(row.content);
 		if(row.replyId!=0){
 			$.messager.alert("系统提示","请选择一条要回复的留言！");
 		return;
@@ -63,7 +104,6 @@
 		 //$("#fm").form("load",row);
 		url="${pageContext.request.contextPath}/TopicAdd?replyId="+row.topicId;
 	 }
-	 
 	 
 	 function saveTopic(){
 		 $("#fm").form("submit",{
@@ -92,7 +132,7 @@
 	 
 	 function resetValue(){
 		 $("#title").val("");
-		 $("#content").val("");
+		 editor1.html("");
 		 $("#postTime").datetimebox("setValue","");
 		 $("#replyId").val("");
 	 }
@@ -138,12 +178,13 @@
    <thead>
    	<tr>
    		<th field="cb" checkbox="true" align="center"></th>
-   		<th field="topicId" width="50" align="center">编号</th>
-   		<th field="title" width="50" align="center">标题</th>
-   		<th field="content" width="50" align="center">内容</th>
-   		<th field="userId" width="50" align="center">用户ID</th>
-   		<th field="replyId" width="50" align="center">回复帖子ID</th>
-   		<th field="postTime" width="50" align="center">发表时间</th>
+   		<th field="topicId" width="20" align="center">编号</th>
+   		<th field="title" width="40" align="center">标题</th>
+   		<th field="content" width="100" align="center">内容</th>
+   		<th field="userId" width="20" align="center">用户ID</th>
+   		<th field="userName" width="30" align="center">用户ID</th>
+   		<th field="replyId" width="20" align="center">回复帖子ID</th>
+   		<th field="postTime" width="30" align="center">发表时间</th>
    	</tr>
    </thead>
  </table>
@@ -179,7 +220,7 @@
    		<tr>
    		<td>新闻内容：</td>
    			<td colspan="4">
-   				<textarea rows="7" cols="47" id="content" name="content" class="easyui-validatebox" required></textarea>
+   				<textarea id="content" name="content" cols="100" rows="6" style="width:100%;height:150px;visibility:hidden;"></textarea>
    				&nbsp;<font color="red">*</font>
    			</td>
    		</tr>

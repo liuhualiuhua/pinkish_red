@@ -69,6 +69,7 @@ public class TopicDaoImpl extends BaseDao implements TopicDao {
 				t.setUserId(rs.getInt(4));
 				t.setReplyId(rs.getInt(5));
 				t.setPostTime(rs.getString(6));
+				t.setUserName(rs.getString(7));
 				list.add(t);
 			}
 		} catch (SQLException e) {
@@ -139,13 +140,14 @@ public class TopicDaoImpl extends BaseDao implements TopicDao {
 		int result = 0;
 		try {
 			conn = super.getConn();
-			String sql = "insert into TOPIC values (?,?,?,?,?)";
+			String sql = "insert into TOPIC values (?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, topic.getTitle());
 			pstmt.setString(2, topic.getContent());
 			pstmt.setInt(3, topic.getUserId());
 			pstmt.setInt(4, topic.getReplyId());
 			pstmt.setString(5, topic.getPostTime());
+			pstmt.setString(6, topic.getUserName());
 			System.out.println(sql);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

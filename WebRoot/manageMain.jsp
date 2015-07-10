@@ -6,7 +6,6 @@ Users user=(Users)session.getAttribute("user");
  response.sendRedirect("/pinkish_red/index.jsp");
  }
   %>   
-     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -39,6 +38,53 @@ Users user=(Users)session.getAttribute("user");
 			}
 		});
 	}
+	
+	function openPasswordModifyDialog(){
+		$("#dlg").dialog("open").dialog("setTitle","修改密码");
+		url="${pageContext.request.contextPath}/PassChange?userId=${currentUser.id}";
+	}
+	function closePasswordModifyDialog(){
+		$("#dlg").dialog("close");
+		$("#oldPassword").val("");
+		$("#newPassword").val("");
+		$("#newPassword2").val("");
+	}
+	
+	function modifyPassword(){
+		$("#fm").form("submit",{
+			url:"PassChange",
+			onSubmit:function(){
+				var oldPassword=$("#oldPassword").val();
+				var newPassword=$("#newPassword").val();
+				var newPassword2=$("#newPassword2").val();
+				if(!$(this).form("validate")){
+					return false;
+				}
+				/* if(oldPassword!='${currentUser.password}'){
+					$.messager.alert("系统提示","用户密码输入错误！");
+					return false;
+				} */
+				if(newPassword!=newPassword2){
+					$.messager.alert("系统提示","确认密码输入错误！");
+					return false;
+				}
+				return true;
+			},
+			success:function(result){
+				var result=eval('('+result+')');
+				if(result.success){
+					$.messager.alert("系统提示","密码修改成功，下一次登录生效！");
+					closePasswordModifyDialog();
+				}else{
+					$.messager.alert("系统提示","密码修改失败");
+					return;
+				}
+			}
+		});
+	}
+	
+	
+	
 	
 </script>
 </head>
@@ -80,10 +126,10 @@ Users user=(Users)session.getAttribute("user");
 			<a href="javascript:openTab('服务归档','customerServiceFile.jsp','icon-fwgd')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-fwgd'" style="width: 150px;">服务归档</a>
 		</div>
 		<div title="客服专区"  data-options="iconCls:'icon-fwgl'" style="padding:10px">
-			<a href="javascript:openTab('商品评论管理','khgxfx.jsp','icon-khgxfx')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-khgxfx'" style="width: 150px;">商品评论管理</a>
-			<a href="javascript:openTab('前台聊天室','khgcfx.jsp','icon-khgcfx')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-khgcfx'" style="width: 150px;">客户交流聊天室</a>
+			<a href="javascript:openTab('前台聊天室','chatroom.jsp','icon-khgcfx')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-khgcfx'" style="width: 150px;">前台聊天室</a>
+			<a href="javascript:openTab('前台聊天信息管理','messageManage.jsp','icon-khgxfx')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-khgxfx'" style="width: 150px;">前台聊天信息管理</a>
 			<a href="javascript:openTab('客服聊天室','serviceChatroom.jsp','icon-khfwfx')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-khfwfx'" style="width: 150px;">客服聊天室</a>
-			<a href="javascript:openTab('客户流失分析','khlsfx.jsp','icon-khlsfx')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-khlsfx'" style="width: 150px;">客户流失分析</a>
+			<a href="javascript:openTab('客服聊天信息管理','noteManage.jsp','icon-khlsfx')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-khlsfx'" style="width: 150px;">客服聊天信息管理</a>
 		</div>
 		<div title="基础数据管理"  data-options="iconCls:'icon-jcsjgl'" style="padding:10px">
 			<a href="javascript:openTab('数据字典管理','dataDicManage.jsp','icon-sjzdgl')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-sjzdgl'" style="width: 150px;">数据字典管理</a>
@@ -99,5 +145,37 @@ Users user=(Users)session.getAttribute("user");
 <div region="south" style="height: 25px;padding: 5px" align="center">
 	版本所有--品红电子商务 <a href="#" target="_blank">品红</a>(2014-2016)
 </div>
+
+
+<div id="dlg" class="easyui-dialog" style="width: 400px;height:250px;padding: 10px 20px"
+  closed="true" buttons="#dlg-buttons">
+ 	<form id="fm" method="post">
+ 		<table cellspacing="8px">
+ 			<tr>
+ 				<td>用户名：</td>
+ 				<td><input type="text" id="userName" name="name" value="${sessionScope.user.name }" readonly="readonly" style="width: 200px"/></td>
+ 			</tr>
+ 			<tr>
+ 				<td>原密码：</td>
+ 				<td><input type="password" id="oldPassword" name="pass" class="easyui-validatebox" required="true" style="width: 200px"/></td>
+ 			</tr>
+ 			<tr>
+ 				<td>新密码：</td>
+ 				<td><input type="password" id="newPassword" name="password" class="easyui-validatebox" required="true" style="width: 200px"/></td>
+ 			</tr>
+ 			<tr>
+ 				<td>确认新密码：</td>
+ 				<td><input type="password" id="newPassword2"   class="easyui-validatebox" required="true" style="width: 200px"/></td>
+ 			</tr>
+ 		</table>
+ 	</form>
+</div>
+
+<div id="dlg-buttons">
+	<a href="javascript:modifyPassword()" class="easyui-linkbutton" iconCls="icon-ok">保存</a>
+	<a href="javascript:closePasswordModifyDialog()" class="easyui-linkbutton" iconCls="icon-cancel">关闭</a>
+</div>
+
+
 </body>
 </html>

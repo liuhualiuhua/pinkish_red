@@ -46,6 +46,7 @@ public class UserAdd extends HttpServlet {
 		UsersDao usersDao = new UsersDaoImpl();
 		JSONObject obj = new JSONObject();
 		int result = 0;
+		
 		if (StringUtil.isNotEmpty(userId)) {
 			u.setUserId(Integer.parseInt(userId));
 			result = usersDao.updateUsers(u);

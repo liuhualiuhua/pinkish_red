@@ -79,6 +79,12 @@ public class NoteDaoImpl extends BaseDao implements NoteDao {
 		if (note.getNoteId() != 0) {
 			sb.append(" and noteId=" + note.getNoteId() + " ");
 		}
+		if (note.getPostTime() != null) {
+			sb.append(" and postTime > '" + note.getPostTime() + "' ");
+		}
+		if (map != null && !map.isEmpty() && map.get("postTime2") != null) {
+			sb.append(" and postTime < '" + map.get("postTime2") + "' ");
+		}
 		sb.append(" order by noteId desc");
 		sb.append(" ) ");
 		if (note.getToId() != 0) {
@@ -95,6 +101,12 @@ public class NoteDaoImpl extends BaseDao implements NoteDao {
 		}
 		if (note.getNoteId() != 0) {
 			sb.append(" and noteId=" + note.getNoteId() + " ");
+		}
+		if (note.getPostTime() != null) {
+			sb.append(" and postTime > '" + note.getPostTime() + "' ");
+		}
+		if (map != null && !map.isEmpty() && map.get("postTime2") != null) {
+			sb.append(" and postTime < '" + map.get("postTime2") + "' ");
 		}
 		sb.append(" order by noteId desc");
 
@@ -145,6 +157,12 @@ public class NoteDaoImpl extends BaseDao implements NoteDao {
 		}
 		if (note.getNoteId() != 0) {
 			sb.append(" and noteId=" + note.getNoteId() + " ");
+		}
+		if (note.getPostTime() != null) {
+			sb.append(" and postTime > '" + note.getPostTime() + "' ");
+		}
+		if (!map.isEmpty() && map.get("postTime2") != null) {
+			sb.append(" and postTime < '" + map.get("postTime2") + "' ");
 		}
 		try {
 			conn = super.getConn();

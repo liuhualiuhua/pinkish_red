@@ -27,7 +27,7 @@ function getCount(){
 				$("#tbody").empty();
 				date.content.forEach(
 					function(item){
-					var str="<tr ><td>"+item.fromName+"</td><td><button onclick='change("+item.fromId+")' type='button' class='btn btn-default' data-toggle='modal' data-target='#myModal'>聊天 <span class='badge'>"+item.toId+"</span></button></td></tr>";
+					var str="<tr ><td>"+item.fromName+"</td><td><button onclick='change("+item.fromId+")' type='button' class='btn btn-default btn-sm' data-toggle='modal' data-target='#myModal'>聊天 <span class='badge'>"+item.toId+"</span></button></td></tr>";
 					$("#tbody").append(str);
 					}
 				)
@@ -40,7 +40,7 @@ function sendNote(userId,str){
 		"/pinkish_red/NoteAdd",
 		{"userId":userId,"content":str},
 		function(date){
-		var date=$.parseJSON(date);
+			var date=$.parseJSON(date);
 			if(date.result){
 				alert("成功");
 			}else{
@@ -81,6 +81,7 @@ var timers;
 function change(userId){
 	clearInterval(timers);
 	$("#apple").val(userId);
+	$("#content").empty();
 	getNotes();
 	timers=setInterval(getNotes,3000);
 }
@@ -103,10 +104,10 @@ function getOldUsersList(){
 		function(date){
 			var date=$.parseJSON(date);
 			if(date.result){
+				$("#oldTbody").empty();
 				date.content.forEach(
 					function(item){
-						$("#oldTbody").empty();
-						var str="<tr><td>"+item.name+"</td><td><button type='button' onclick='old("+item.userId+")' class='btn btn-default' data-toggle='modal' data-target='#myModal2'>聊天记录</button></td><td><button onclick='change("+item.userId+")' type='button' class='btn btn-default ' data-toggle='modal' data-target='#myModal'>发起聊天</button></td></tr>";
+						var str="<tr><td>"+item.name+"</td><td><button type='button' onclick='old("+item.userId+")' class='btn btn-default btn-sm' data-toggle='modal' data-target='#myModal2'>聊天记录</button></td><td><button onclick='change("+item.userId+")' type='button' class='btn btn-default  btn-sm' data-toggle='modal' data-target='#myModal'>发起聊天</button></td></tr>";
 						$("#oldTbody").append(str);
 					}
 				)
@@ -157,7 +158,6 @@ function newer(){
 }
 $(document).ready(function(){
 	$("#closeLabel").click(function(){
-		//alert("abc");
 		clearInterval(timers);
 	});
 	refreshList();
@@ -212,30 +212,30 @@ $(document).ready(function(){
 					</table>
 <br></br>
 
-<table class="table table-hover table-bordered table-condensed" >
-  <thead>
-  	<tr>
-  		<td>历史记录</td>
-  		<td>按钮</td>
-  		<td>功能按钮</td>
-  	</tr>
-  </thead>
-  <tbody id="oldTbody" >
-  	<tr>
-  		<td>用户名</td>
-  		<td>
-	  		<button type="button" onclick="old(userId)" class="btn btn-default" data-toggle="modal" data-target="#myModal2">
-	  		点击查看
-			</button>
-  		</td>
-  		<td>
-  			<button onclick="change('')" type="button" class="btn btn-default " data-toggle="modal" data-target="#myModal">
-			发起聊天
-			</button>
-  		</td>
-  	</tr>
-  </tbody>
-</table>
+					<table class="table table-hover table-bordered table-condensed" >
+					  <thead>
+					  	<tr>
+					  		<td>历史记录</td>
+					  		<td>聊天记录</td>
+					  		<td>功能按钮</td>
+					  	</tr>
+					  </thead>
+					  <tbody id="oldTbody" >
+					  	<tr>
+					  		<td>用户名</td>
+					  		<td>
+						  		<button type="button" onclick="old(userId)" class="btn btn-default" data-toggle="modal" data-target="#myModal2">
+						  		点击查看
+								</button>
+					  		</td>
+					  		<td>
+					  			<button onclick="change('')" type="button" class="btn btn-default " data-toggle="modal" data-target="#myModal">
+								发起聊天
+								</button>
+					  		</td>
+					  	</tr>
+					  </tbody>
+					</table>
 
 
 
@@ -302,6 +302,7 @@ $(document).ready(function(){
 	    </div>
 	  </div>
 	</div>
+	
 	
 	
 <input id="apple" name="apple" type="hidden" value="">

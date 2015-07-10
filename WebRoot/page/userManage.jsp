@@ -154,9 +154,10 @@
    				<select class="easyui-combobox" id="role" name="role" style="width: 154px" editable="false" panelHeight="auto">
    					<option value="">权限级别</option>
    					<option value="1">1(消费者)</option>
-   					<option value="2">2(卖家)</option>
-   					<option value="3">3(普通管理员)</option>
-   					<option value="4">4(中级管理员)</option>
+   					<option value="2">2(客服)</option>
+   					<option value="3">3(卖家)</option>
+   					<option value="4">4(系统管理员)</option>
+   					<option value="5">5(高级管理员)</option>
    				</select>
    				&nbsp;<font color="red">*</font>
    			</td>

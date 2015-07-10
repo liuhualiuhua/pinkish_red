@@ -39,7 +39,6 @@ public class NewsAdd extends HttpServlet {
 		String newsId = request.getParameter("newsId");
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-		// String postTime = request.getParameter("postTime");
 		String postTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 				.format(new Date());
 		HttpSession session = request.getSession();

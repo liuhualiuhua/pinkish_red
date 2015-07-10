@@ -75,7 +75,7 @@ A:active {
 	function login(){
 		var userName=document.getElementById("userName").value;
 		var password=document.getElementById("password").value;
-		var roleName=document.getElementById("role").value;
+		var check=document.getElementById("check").value;
 		if(userName==null||userName==""){
 			alert("用户名不能为空！");
 			return;
@@ -84,11 +84,18 @@ A:active {
 			alert("密码不能为空！");
 			return;
 		}
-		if(roleName==null||roleName==""){
-			alert("请选择用户类型！");
+		if(check==null||check==""){
+			alert("验证码不能为空！");
+			return;
+		}
+		if(check.length!=4){
+			alert("验证码长度错误！");
 			return;
 		}	
 		document.adminlogin.submit();			
+	}
+	function checkCode(){
+		document.getElementById('safe').src = 'image.jsp?' + Math.random();
 	}
 </script>
 </head>
@@ -115,22 +122,23 @@ A:active {
 			<TABLE border=0 cellSpacing=0 cellPadding=0 width="100%">
 				<TBODY>
 					<TR>
-						<TD style="HEIGHT: 45px"><INPUT type="text" class=input value="${user.name }" name="name" id="userName"></TD>
+						<TD style="HEIGHT: 45px"><INPUT type="text" class=input value="${name }" name="name" id="userName"></TD>
 					</TR>
 					<TR>
-						<TD><INPUT type="password" class=input value="${user.pass }" name="pass" id="password"/></TD>
+						<TD><INPUT type="password" class=input value="${pass }" name="pass" id="password"/></TD>
 					</TR>
 					<TR>
 						<td>
-							<select id="role" name="role" class="input" style="margin-top: 15px;height: 24px">
-								<option value="">请选择用户类型...</option>
-								<option value="管理员"  }>系统管理员</option>
-								<option value="主管"  }>主管</option>
-								<option value="经理"  }>经理</option>
-								<option value="高管"  >高管</option>
-							</select>
+							<br>
+							<INPUT type="text" class=input name="check" id="check" style="width:120"><img id="safe" onclick="javascript:checkCode()" src="image.jsp"><br>		
 						</td>
 					</TR>
+					<tr>
+						<td>
+							<font color="red">${error }</font>
+						</td>
+					</tr>
+					
 				</TBODY>
 			</TABLE>
 			</DIV>

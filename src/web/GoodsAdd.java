@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSONObject;
+import com.jspsmart.upload.*;
 
 import dao.GoodsDao;
 import dao.impl.GoodsDaoImpl;
@@ -26,25 +27,65 @@ public class GoodsAdd extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html;charset=utf-8");
+		request.setCharacterEncoding("GB2312");
+		response.setContentType("text/html;charset=GB2312");
+		
 
-		String name = request.getParameter("name");
-		String brand = request.getParameter("brand");
-		String type = request.getParameter("type");
-		String description = request.getParameter("description");
-		String price = request.getParameter("price");
-		String pic = request.getParameter("pic");
+		// 实例化上传组件
+		SmartUpload upload = new SmartUpload();
+		// 初始化上传组件
+		upload.initialize(this.getServletConfig(), request, response);
+		
+		
+		
+		
+		
+		
+		
+		// 开始上传
+		try {
+			upload.upload();
+		} catch (SmartUploadException e1) {
+			e1.printStackTrace();
+		}
+		// 获取上传的文件列表对象
+		Files f = upload.getFiles();
+		// 获取文件对象
+		File fil = f.getFile(0);
+		// 去的文件后缀
+		String ext = fil.getFileExt();
+		// 判断文件类型是否是jpg格式
+
+		System.out.println(fil.getSize());
+		// if (!(ext.equals("jpg")) || fil.getSize()>1024*1024) {
+		// out.println("<script type='text/javascript'>alert('文件类型错误或超过大小限制');location.replace('index.jsp');</script>");
+		// return;
+		// }
+		// 满足条件进行文件的上传 需要注意的是upload使我们webRoot文件夹下的一个目录
+		try {
+			fil.saveAs("upload/" + fil.getFileName());
+		} catch (SmartUploadException e) {
+			e.printStackTrace();
+		}
+		//out.print(upload.getRequest().getParameter("name") + "<><>");
+		
+		String name=upload.getRequest().getParameter("name");
+		String brand = upload.getRequest().getParameter("brand");
+		String type = upload.getRequest().getParameter("type");
+		String description = upload.getRequest().getParameter("description");
+		String price = upload.getRequest().getParameter("price");
+		String pic = upload.getRequest().getParameter("pic");
+		
 
 		Goods goods = new Goods();
 		goods.setName(name);
 		goods.setBrand(brand);
 		goods.setType(type);
 		goods.setDescription(description);
-		goods.setPrice(Double.parseDouble(price));
+		//goods.setPrice(Double.parseDouble(price));
 		goods.setPic(pic);
 
-		String goodsId = request.getParameter("goodsId");
+		String goodsId = upload.getRequest().getParameter("goodsId");
 		GoodsDao goodsDao = new GoodsDaoImpl();
 		JSONObject obj = new JSONObject();
 		int result = 0;

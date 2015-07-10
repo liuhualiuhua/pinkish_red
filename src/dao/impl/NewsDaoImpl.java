@@ -39,7 +39,7 @@ public class NewsDaoImpl extends BaseDao implements NewsDao {
 		if (news.getNewsId() != 0) {
 			sb.append(" and newsId =" + news.getNewsId() + "");
 		}
-		sb.append(" ) ");
+		sb.append(" order by newsId desc) ");
 		if (news.getTitle() != null) {
 			sb.append(" and title like '%" + news.getTitle() + "%'");
 		}
@@ -55,6 +55,7 @@ public class NewsDaoImpl extends BaseDao implements NewsDao {
 		if (news.getNewsId() != 0) {
 			sb.append(" and newsId =" + news.getNewsId() + "");
 		}
+		sb.append(" order by newsId desc");
 
 		try {
 			conn = super.getConn();
@@ -174,6 +175,19 @@ public class NewsDaoImpl extends BaseDao implements NewsDao {
 			super.closeAll(conn, pstmt, rs);
 		}
 		return result;
+	}
+
+	@Override
+	public News get(int newsId, String abc) {
+		String sql;
+
+		if (abc == null || abc.equals("b")) {
+			sql = "select top 1 * from NEWS where newsId>=? ";
+		} else if (abc.equals("a")) {
+			sql = "select top 1 * from NEWS where newsId<=? order by newsId desc";
+		}
+
+		return null;
 	}
 
 }

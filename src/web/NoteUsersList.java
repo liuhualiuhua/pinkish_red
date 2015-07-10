@@ -48,6 +48,7 @@ public class NoteUsersList extends HttpServlet {
 		} else {
 			obj.put("result", true);
 		}
+		//System.out.println(list);
 		obj.put("content", list);
 		out.print(obj);
 		out.flush();

@@ -19,4 +19,6 @@ public interface UsersDao {
 	public Users login(Users users);
 	
 	public Users findById(int userId);
+	
+	public int changePass(Users users);
 }

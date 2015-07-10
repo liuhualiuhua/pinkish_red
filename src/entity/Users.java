@@ -49,4 +49,11 @@ public class Users {
 	public void setHead(String head) {
 		this.head = head;
 	}
+
+	@Override
+	public String toString() {
+		return "Users [userId=" + userId + ", name=" + name + ", pass=" + pass
+				+ ", role=" + role + ", head=" + head + "]";
+	}
+	
 }

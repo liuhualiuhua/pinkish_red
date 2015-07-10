@@ -20,8 +20,47 @@
 	src="${pageContext.request.contextPath}/jquery-easyui-1.3.3/jquery.easyui.min.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/jquery-easyui-1.3.3/locale/easyui-lang-zh_CN.js"></script>
+<link rel="stylesheet" href="../kindeditor/themes/default/default.css" />
+<link rel="stylesheet" href="../kindeditor/plugins/code/prettify.css" />
+<script charset="utf-8" src="../kindeditor/kindeditor.js"></script>
+<script charset="utf-8" src="../kindeditor/lang/zh_CN.js"></script>
+<script charset="utf-8" src="../kindeditor/plugins/code/prettify.js"></script>
 <script type="text/javascript">
-	var url;
+var editor1;
+KindEditor.ready(function(K) {
+				editor1 = K.create('textarea[name="content"]', {
+				cssPath : '../kindeditor/plugins/code/prettify.css',
+				uploadJson : '../kindeditor/jsp/upload_json.jsp',
+				fileManagerJson : '../kindeditor/jsp/file_manager_json.jsp',
+				allowFileManager : true,
+				allowImageUpload : true,
+				items : [
+						'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+						'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+						'insertunorderedlist', '|', 'emoticons', 'image', 'link'],
+				afterCreate : function() {
+					var self = this;
+					K.ctrl(document, 13, function() {
+						self.sync();
+						document.forms['example'].submit();
+					});
+					K.ctrl(self.edit.doc, 13, function() {
+						self.sync();
+						document.forms['example'].submit();
+					});
+				},
+				afterChange: function () {
+         			this.sync();
+        		},
+        		afterBlur: function () {
+        			this.sync(); 
+        		}
+			});
+			prettyPrint();
+		});
+</script>
+<script type="text/javascript">
+var url;
 function searchNews(){
 	$("#dg").datagrid('load', {
 		"id" : $("#s_newsId").val(),
@@ -42,6 +81,7 @@ function openNewsModifyDialog(){
 			 return;
 		 }
 		 var row=selectedRows[0];
+		 editor1.html(row.content);
 		 $("#dlg").dialog("open").dialog("setTitle","编辑新闻信息");
 		 $("#fm").form("load",row);
 		 url="${pageContext.request.contextPath}/NewsAdd?newsId="+row.newsId;
@@ -55,6 +95,11 @@ function openNewsModifyDialog(){
 				//	$.messager.alert("系统提示","请选择日期！");
 				//	return false;
 				//}
+				var str=editor1.html();
+				if(str==null||str.length==0){
+					$.messager.alert("系统提示","请填入新闻内容！");
+					return false;
+				}
 				return $(this).form("validate");
 			},
 			success:function(result){
@@ -74,7 +119,7 @@ function openNewsModifyDialog(){
 	 
 	 function resetValue(){
 		 $("#title").val("");
-		 $("#content").val("");
+		 editor1.html("");
 		 $("#postTime").datetimebox("setValue","");
 	 }
 	 
@@ -158,8 +203,8 @@ function openNewsModifyDialog(){
    		<tr>
    		<td>新闻内容：</td>
    			<td colspan="4">
-   				<textarea rows="7" cols="47" id="content" name="content" class="easyui-validatebox" required></textarea>
-   				&nbsp;<font color="red">*</font>
+   				<br>
+   				<textarea id="content" name="content" cols="100" rows="6" style="width:100%;height:150px;visibility:hidden;"></textarea>
    			</td>
    		</tr>
    	</table>

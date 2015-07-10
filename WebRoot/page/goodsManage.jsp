@@ -1,13 +1,8 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
-
+<%@ page language="java" import="java.util.*" pageEncoding="GBK"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=GBK">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/jquery-easyui-1.3.3/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css"
@@ -18,6 +13,45 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	src="${pageContext.request.contextPath}/jquery-easyui-1.3.3/jquery.easyui.min.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/jquery-easyui-1.3.3/locale/easyui-lang-zh_CN.js"></script>
+<link rel="stylesheet" href="../kindeditor/themes/default/default.css" />
+<link rel="stylesheet" href="../kindeditor/plugins/code/prettify.css" />
+<script charset="utf-8" src="../kindeditor/kindeditor.js"></script>
+<script charset="utf-8" src="../kindeditor/lang/zh_CN.js"></script>
+<script charset="utf-8" src="../kindeditor/plugins/code/prettify.js"></script>
+<script type="text/javascript">
+var editor1;
+KindEditor.ready(function(K) {
+				editor1 = K.create('textarea[name="description"]', {
+				cssPath : '../kindeditor/plugins/code/prettify.css',
+				uploadJson : '../kindeditor/jsp/upload_json.jsp',
+				fileManagerJson : '../kindeditor/jsp/file_manager_json.jsp',
+				allowFileManager : true,
+				allowImageUpload : true,
+				items : [
+						'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+						'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+						'insertunorderedlist', '|', 'emoticons', 'image', 'link'],
+				afterCreate : function() {
+					var self = this;
+					K.ctrl(document, 13, function() {
+						self.sync();
+						document.forms['example'].submit();
+					});
+					K.ctrl(self.edit.doc, 13, function() {
+						self.sync();
+						document.forms['example'].submit();
+					});
+				},
+				afterChange: function () {
+         			this.sync();
+        		},
+        		afterBlur: function () {
+        			this.sync(); 
+        		}
+			});
+			prettyPrint();
+		});
+</script>
 <script type="text/javascript">
 var url;
 function searchGoods(){
@@ -34,17 +68,18 @@ function searchGoods(){
 }
 
 function openGoodsAddDialog(){
-	$("#dlg").dialog("open").dialog("setTitle","æ·»åŠ æ–°é—»ä¿¡æ¯");
+	$("#dlg").dialog("open").dialog("setTitle","Ìí¼ÓÉÌÆ·ĞÅÏ¢");
 	url="${pageContext.request.contextPath}/GoodsAdd";
 }
 function openGoodsModifyDialog(){
 		 var selectedRows=$("#dg").datagrid("getSelections");
 		 if(selectedRows.length!=1){
-			 $.messager.alert("ç³»ç»Ÿæç¤º","è¯·é€‰æ‹©ä¸€æ¡è¦ç¼–è¾‘çš„æ•°æ®ï¼");
+			 $.messager.alert("ÏµÍ³ÌáÊ¾","ÇëÑ¡ÔñÒ»ÌõÒª±à¼­µÄÊı¾İ£¡");
 			 return;
 		 }
 		 var row=selectedRows[0];
-		 $("#dlg").dialog("open").dialog("setTitle","ç¼–è¾‘æ–°é—»ä¿¡æ¯");
+		 $("#dlg").dialog("open").dialog("setTitle","±à¼­ÉÌÆ·ĞÅÏ¢");
+		 editor1.html(row.description);
 		 $("#fm").form("load",row);
 		 url="${pageContext.request.contextPath}/GoodsAdd?goodsId="+row.goodsId;
 	 }
@@ -54,7 +89,12 @@ function openGoodsModifyDialog(){
 			url:url,
 			onSubmit:function(){
 				if($("#price").val()==""){
-					$.messager.alert("ç³»ç»Ÿæç¤º","è¯·å¡«å†™ä»·æ ¼ï¼");
+					$.messager.alert("ÏµÍ³ÌáÊ¾","ÇëÌîĞ´¼Û¸ñ£¡");
+					return false;
+				}
+				var str=editor1.html();
+				if(str==null||str.length==0){
+					$.messager.alert("ÏµÍ³ÌáÊ¾","ÇëÌîÈëÉÌÆ·ÃèÊö£¡");
 					return false;
 				}
 				return $(this).form("validate");
@@ -62,12 +102,12 @@ function openGoodsModifyDialog(){
 			success:function(result){
 				var result=eval('('+result+')');
 				if(result.success){
-					$.messager.alert("ç³»ç»Ÿæç¤º","ä¿å­˜æˆåŠŸï¼");
+					$.messager.alert("ÏµÍ³ÌáÊ¾","±£´æ³É¹¦£¡");
 					resetValue();
 					$("#dlg").dialog("close");
 					$("#dg").datagrid("reload");
 				}else{
-					$.messager.alert("ç³»ç»Ÿæç¤º","ä¿å­˜å¤±è´¥ï¼");
+					$.messager.alert("ÏµÍ³ÌáÊ¾","±£´æÊ§°Ü£¡");
 					return;
 				}
 			}
@@ -75,12 +115,17 @@ function openGoodsModifyDialog(){
 	 }
 	 
 	 function resetValue(){
+	 	editor1.html("");
 		 $("#name").val("");
 		 $("#brand").val("");
 		 $("#type").val("");
-		 $("#description").val("");
 		 $("#price").val("");
-		 $("#pic").val("");	 
+		 $("#pic").val("");
+		 $("#doc").val("");
+		 editor1.html("");
+		 $("#preview").css("display","none");
+		  
+		 
 	 }
 	 
 	 function closeGoodsDialog(){
@@ -91,7 +136,7 @@ function openGoodsModifyDialog(){
 	 function deleteGoods(){
 		 var selectedRows=$("#dg").datagrid("getSelections");
 		 if(selectedRows.length==0){
-			 $.messager.alert("ç³»ç»Ÿæç¤º","è¯·é€‰æ‹©è¦åˆ é™¤çš„æ•°æ®ï¼");
+			 $.messager.alert("ÏµÍ³ÌáÊ¾","ÇëÑ¡ÔñÒªÉ¾³ıµÄÊı¾İ£¡");
 			 return;
 		 }
 		 var strIds=[];
@@ -99,103 +144,150 @@ function openGoodsModifyDialog(){
 			 strIds.push(selectedRows[i].goodsId);
 		 }
 		 var ids=strIds.join(",");
-		 $.messager.confirm("ç³»ç»Ÿæç¤º","æ‚¨ç¡®å®šè¦åˆ é™¤è¿™<font color=red>"+selectedRows.length+"</font>æ¡æ•°æ®å—ï¼Ÿ",function(r){
+		 $.messager.confirm("ÏµÍ³ÌáÊ¾","ÄúÈ·¶¨ÒªÉ¾³ıÕâ<font color=red>"+selectedRows.length+"</font>ÌõÊı¾İÂğ£¿",function(r){
 			if(r){
 				$.post("${pageContext.request.contextPath}/GoodsDelete",{ids:ids},function(result){
 					if(result.success){
-						 $.messager.alert("ç³»ç»Ÿæç¤º","å·²æˆåŠŸåˆ é™¤<font color=red>"+result.delNums+"</font>æ¡æ•°æ®!");
+						 $.messager.alert("ÏµÍ³ÌáÊ¾","ÒÑ³É¹¦É¾³ı<font color=red>"+result.delNums+"</font>ÌõÊı¾İ!");
 						 $("#dg").datagrid("reload");
 					}else{
-						$.messager.alert("ç³»ç»Ÿæç¤º","æ•°æ®åˆ é™¤å¤±è´¥ï¼Œè¯·è”ç³»ç³»ç»Ÿç®¡ç†å‘˜ï¼");
+						$.messager.alert("ÏµÍ³ÌáÊ¾","Êı¾İÉ¾³ıÊ§°Ü£¬ÇëÁªÏµÏµÍ³¹ÜÀíÔ±£¡");
 					}
 				},"json");
 			} 
 		 });
 	 }
 </script>
+<script> 
+function setImagePreview() { 
+	var docObj=document.getElementById("doc"); 
+	var imgObjPreview=document.getElementById("preview"); 
+	if(docObj.files && docObj.files[0]){ 
+		//»ğºüÏÂ£¬Ö±½ÓÉèimgÊôĞÔ 
+		imgObjPreview.style.display = 'block'; 
+		imgObjPreview.style.width = '180px'; 
+		imgObjPreview.style.height = '160px'; 
+		//imgObjPreview.src = docObj.files[0].getAsDataURL(); 
+		//»ğºü7ÒÔÉÏ°æ±¾²»ÄÜÓÃÉÏÃæµÄgetAsDataURL()·½Ê½»ñÈ¡£¬ĞèÒªÒ»ÏÂ·½Ê½ 
+		imgObjPreview.src = window.URL.createObjectURL(docObj.files[0]); 
+	}else{ 
+		//IEÏÂ£¬Ê¹ÓÃÂË¾µ 
+		docObj.select(); 
+		var imgSrc = document.selection.createRange().text; 
+		var localImagId = document.getElementById("localImag"); 
+		//±ØĞëÉèÖÃ³õÊ¼´óĞ¡ 
+		localImagId.style.width = "180px"; 
+		localImagId.style.height = "160px"; 
+		//Í¼Æ¬Òì³£µÄ²¶×½£¬·ÀÖ¹ÓÃ»§ĞŞ¸Äºó×ºÀ´Î±ÔìÍ¼Æ¬ 
+		try{ 
+			localImagId.style.filter="progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)"; 
+			localImagId.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc; 
+		}catch(e){ 
+		    alert("ÄúÉÏ´«µÄÍ¼Æ¬¸ñÊ½²»ÕıÈ·£¬ÇëÖØĞÂÑ¡Ôñ!"); 
+		    return false; 
+		} 
+		imgObjPreview.style.display = 'none'; 
+		document.selection.empty(); 
+	} 
+	return true; 
+} 
+</script> 
 
   </head>
   
   <body>
-    <table id="dg" title="æ–°é—»ç®¡ç†" class="easyui-datagrid" fitColumns="true"
+    <table id="dg" title="ĞÂÎÅ¹ÜÀí" class="easyui-datagrid" fitColumns="true"
 		pagination="true" pageSize:"20"  rownumbers="true"
 		url="${pageContext.request.contextPath}/GoodsList" fit="true"
 		toolbar="#tb">
 		<thead>
 			<tr>
 				<th field="cb" checkbox="true" align="center"></th>
-				<th field="goodsId" width="10" align="center">å•†å“ID</th>
-				<th field="name" width="10" align="center">åç§°</th>
-				<th field="brand" width="20" align="center">å“ç‰Œ</th>
-				<th field="type" width="20" align="center">å‹å·</th>
-				<th field="description" width="30" align="center">æè¿°</th>
-				<th field="price" width="20" align="center">ä»·æ ¼</th>
-				<th field="pic" width="20" align="center">å›¾ç‰‡</th>
+				<th field="goodsId" width="10" align="center">ÉÌÆ·ID</th>
+				<th field="name" width="10" align="center">Ãû³Æ</th>
+				<th field="brand" width="20" align="center">Æ·ÅÆ</th>
+				<th field="type" width="20" align="center">ĞÍºÅ</th>
+				<th field="description" width="30" align="center">ÃèÊö</th>
+				<th field="price" width="20" align="center">¼Û¸ñ</th>
+				<th field="pic" width="20" align="center">Í¼Æ¬</th>
 			</tr>
 		</thead>
 	</table>
 	<div id="tb">
  	<div>
- 		<a href="javascript:openGoodsAddDialog()" class="easyui-linkbutton" iconCls="icon-add" plain="true">æ·»åŠ </a>
- 		<a href="javascript:openGoodsModifyDialog()" class="easyui-linkbutton" iconCls="icon-edit" plain="true">ä¿®æ”¹</a>
- 		<a href="javascript:deleteGoods()" class="easyui-linkbutton" iconCls="icon-remove" plain="true">åˆ é™¤</a>
+ 		<a href="javascript:openGoodsAddDialog()" class="easyui-linkbutton" iconCls="icon-add" plain="true">Ìí¼Ó</a>
+ 		<a href="javascript:openGoodsModifyDialog()" class="easyui-linkbutton" iconCls="icon-edit" plain="true">ĞŞ¸Ä</a>
+ 		<a href="javascript:deleteGoods()" class="easyui-linkbutton" iconCls="icon-remove" plain="true">É¾³ı</a>
  	</div>
  	<div>
  		
- 		&nbsp;å•†å“IDï¼š<input type="text" id="s_goodsId" size="5"  onkeydown="if(event.keyCode==13) searchGoods()"/>
- 		&nbsp;åç§°ï¼š<input type="text" id="s_name" size="8" onkeydown="if(event.keyCode==13) searchGoods()"/>
- 		&nbsp;å“ç‰Œï¼š<input type="text" id="s_brand" size="8" onkeydown="if(event.keyCode==13) searchGoods()"/>
- 		&nbsp;å‹å·ï¼š<input type="text" id="s_type" size="10" onkeydown="if(event.keyCode==13) searchGoods()"/>
- 		&nbsp;æè¿°ï¼š<input type="text" id="s_description" size="10" onkeydown="if(event.keyCode==13) searchGoods()"/>
- 		&nbsp;ä»·æ ¼èŒƒå›´ï¼š<input type="text" id="s_price1" size="5" onkeydown="if(event.keyCode==13) searchGoods()"/>
+ 		&nbsp;ÉÌÆ·ID£º<input type="text" id="s_goodsId" size="5"  onkeydown="if(event.keyCode==13) searchGoods()"/>
+ 		&nbsp;Ãû³Æ£º<input type="text" id="s_name" size="8" onkeydown="if(event.keyCode==13) searchGoods()"/>
+ 		&nbsp;Æ·ÅÆ£º<input type="text" id="s_brand" size="8" onkeydown="if(event.keyCode==13) searchGoods()"/>
+ 		&nbsp;ĞÍºÅ£º<input type="text" id="s_type" size="10" onkeydown="if(event.keyCode==13) searchGoods()"/>
+ 		&nbsp;ÃèÊö£º<input type="text" id="s_description" size="10" onkeydown="if(event.keyCode==13) searchGoods()"/>
+ 		&nbsp;¼Û¸ñ·¶Î§£º<input type="text" id="s_price1" size="5" onkeydown="if(event.keyCode==13) searchGoods()"/>
 ~~<input type="text" id="s_price2" size="5" onkeydown="if(event.keyCode==13) searchGoods()"/>
- 		&nbsp;æ’åºï¼š<select class="easyui-combobox" id="s_sort" name="s_sort"  editable="false" panelHeight="auto">
-   					<option value="">æ’åºæ–¹å¼</option>
-   					<option value="asc">æŒ‰ä»·æ ¼å‡åº</option>
-   					<option value="desc">æŒ‰ä»·æ ¼é™åº</option>
+ 		&nbsp;ÅÅĞò£º<select class="easyui-combobox" id="s_sort" name="s_sort"  editable="false" panelHeight="auto">
+   					<option value="">ÅÅĞò·½Ê½</option>
+   					<option value="asc">°´¼Û¸ñÉıĞò</option>
+   					<option value="desc">°´¼Û¸ñ½µĞò</option>
    				</select>
- 		<a href="javascript:searchGoods()" class="easyui-linkbutton" iconCls="icon-search" plain="true">æœç´¢</a>
+ 		<a href="javascript:searchGoods()" class="easyui-linkbutton" iconCls="icon-search" plain="true">ËÑË÷</a>
  	</div>
  </div>
 
 
- <div id="dlg" class="easyui-dialog" style="width:650px;height:380px;padding: 10px 20px"
+ <div id="dlg" class="easyui-dialog" style="width:700px;height:380px;padding: 10px 20px"
    closed="true" buttons="#dlg-buttons">
    
-   <form id="fm" method="post">
+   <form id="fm" name="fm" method="post" enctype="multipart/form-data">
    	<table cellspacing="8px">
    		<tr>
-   			<td>åç§°ï¼š</td>
+   			<td>Ãû³Æ£º</td>
    			<td><input type="text" id="name" name="name" class="easyui-validatebox" autocomplete="off" required="true"/>&nbsp;<font color="red">*</font></td>
    			<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-   			<td>å“ç‰Œï¼š</td>
+   			<td>Æ·ÅÆ£º</td>
    			<td>
    			<input type="text" id="brand" name="brand" class="easyui-validatebox" autocomplete="off" required="true"/>
    			&nbsp;<font color="red">*</font>
    			</td>
    		</tr>
    		<tr>
-   			<td>å‹å·ï¼š</td>
+   			<td>ĞÍºÅ£º</td>
    			<td><input type="text" id="type" name="type" class="easyui-validatebox" autocomplete="off" required="true"/>&nbsp;<font color="red">*</font></td>
    			<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-   			<td>ä»·æ ¼ï¼š</td>
+   			<td>¼Û¸ñ£º</td>
    			<td>
    			<input type="text" id="price" name="price" class="easyui-validatebox" autocomplete="off" required="true"/>
    			&nbsp;<font color="red">*</font>
    			</td>
    		</tr>
    		<tr>
-   			<td>å›¾ç‰‡URLï¼š</td>
+   			<td>Í¼Æ¬URL£º</td>
    			<td colspan="3"><input type="text" id="pic" name="pic" class="easyui-validatebox" autocomplete="off" required="true"/>&nbsp;<font color="red">*</font></td>
-   			<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+   		</tr>
+   		<tr>
+   			<td>Í¼Æ¬ÎÄ¼ş£º</td>
+   			<td colspan="3">
+   				<input type=file  name="doc" id="doc" onchange="javascript:setImagePreview();"> 
    			</td>
    		</tr>
    		
    		<tr>
-   		<td>æè¿°ï¼š</td>
+   			<td>Í¼Æ¬Ô¤ÀÀ£º</td>
+			<td colspan="3">
+			   <div id="localImag" style="text-align:center"> 
+					<img id="preview" width=-1 height=-1 style="diplay:none" />
+				</div>
+			</td>
+   		</tr>
+   		<tr>
+   		<td>ÃèÊö£º</td>
    			<td colspan="4">
-   				<textarea rows="7" cols="47" id="description" name="description" class="easyui-validatebox" required></textarea>
    				&nbsp;<font color="red">*</font>
+   				<br>
+   				<textarea id="description" name="description" cols="100" rows="6" style="width:100%;height:150px;visibility:hidden;"></textarea>
    			</td>
    		</tr>
    	</table>
@@ -203,8 +295,8 @@ function openGoodsModifyDialog(){
  </div>
  
  <div id="dlg-buttons">
- 	<a href="javascript:saveGoods()" class="easyui-linkbutton" iconCls="icon-ok">ä¿å­˜</a>
- 	<a href="javascript:closeGoodsDialog()" class="easyui-linkbutton" iconCls="icon-cancel">å…³é—­</a>
+ 	<a href="javascript:saveGoods()" class="easyui-linkbutton" iconCls="icon-ok">±£´æ</a>
+ 	<a href="javascript:closeGoodsDialog()" class="easyui-linkbutton" iconCls="icon-cancel">¹Ø±Õ</a>
  </div>
 
 
