@@ -35,13 +35,7 @@ public class GoodsAdd extends HttpServlet {
 		SmartUpload upload = new SmartUpload();
 		// 初始化上传组件
 		upload.initialize(this.getServletConfig(), request, response);
-		
-		
-		
-		
-		
-		
-		
+
 		// 开始上传
 		try {
 			upload.upload();
@@ -67,22 +61,22 @@ public class GoodsAdd extends HttpServlet {
 		} catch (SmartUploadException e) {
 			e.printStackTrace();
 		}
-		//out.print(upload.getRequest().getParameter("name") + "<><>");
+		//System.out.print(upload.getRequest().getParameter("name") + "<><>");
 		
 		String name=upload.getRequest().getParameter("name");
 		String brand = upload.getRequest().getParameter("brand");
 		String type = upload.getRequest().getParameter("type");
 		String description = upload.getRequest().getParameter("description");
 		String price = upload.getRequest().getParameter("price");
-		String pic = upload.getRequest().getParameter("pic");
-		
+		//String pic = upload.getRequest().getParameter("pic");
+		String pic="upload/" + fil.getFileName();
 
 		Goods goods = new Goods();
 		goods.setName(name);
 		goods.setBrand(brand);
 		goods.setType(type);
 		goods.setDescription(description);
-		//goods.setPrice(Double.parseDouble(price));
+		goods.setPrice(Double.parseDouble(price));
 		goods.setPic(pic);
 
 		String goodsId = upload.getRequest().getParameter("goodsId");

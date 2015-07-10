@@ -54,6 +54,7 @@ KindEditor.ready(function(K) {
 </script>
 <script type="text/javascript">
 var url;
+var decimalReg=/^\d{0,8}\.{0,1}(\d{1,2})?$/;
 function searchGoods(){
 	$("#dg").datagrid('load', {
 		"id" : $("#s_newsId").val(),
@@ -90,6 +91,10 @@ function openGoodsModifyDialog(){
 			onSubmit:function(){
 				if($("#price").val()==""){
 					$.messager.alert("系统提示","请填写价格！");
+					return false;
+				}
+				if(!decimalReg.test($("#price").val())){
+					$.messager.alert("系统提示","价格格式错误！");
 					return false;
 				}
 				var str=editor1.html();
