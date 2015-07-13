@@ -122,7 +122,64 @@ function getUnReadMsg(){
 	);
 }
 
+
 var pages=1;
+function getOldMessage(){
+	var userIds=$("#idToBe").val();
+	$.get(
+		"/pinkish_red/MessageList4UI",
+		{'page':pages,'rows':15},
+		function(date){
+			var date=$.parseJSON(date);
+			if(date&&date.rows.length>0){
+				$("#oldContent").empty();
+				date.rows.forEach(
+					function(item){
+						var str;
+						if(item.userId==userIds){
+							str="<p class='bg-success text-danger text-right'>";
+						}else{
+							str="<p >";
+						}
+						str=str+item.userName+"("+item.postTime.substring(11,20)+"):<br>"+item.content+"</p>";
+						$("#oldContent").append(str);
+					}
+				);
+				$("#oldContent").scrollTop("1500");
+			}else{
+				alert("没有更多内容");
+				pages=pages-1;
+			}	
+		}
+	);
+}
+
+function getOld(){
+	$("#oldContent").empty();
+	pages=1;
+	getOldMessage();
+	$("#oldContent").scrollTop("2500");
+}
+
+function older(){
+	
+	pages=pages+1;
+	getOldMessage();
+	$("#oldContent").scrollTop("2500");
+}
+
+function newer(){
+	if(pages>=2){
+		$("#oldContent").empty();
+		pages=pages-1;
+		getOldMessage();
+	}else{
+		alert("没有更多内容");
+		return;
+	}
+	$("#oldContent").scrollTop("2500");
+}
+
 function sendMessage(content){
 	$.post(
 		"/pinkish_red/MessageAdd",
@@ -197,7 +254,7 @@ window.onbeforeunload = function() {
 					  <ul class="pager">
 					    <li class="previous" id="sendButton"><a href="javascript:change()">发送</a></li>
 					    <li class="previous" id="cleanButton"><a href="javascript:cleanButton()">清空</a></li>
-					    <li class="next"><a href="javascritp:void(0)">查看聊天记录 </a></li>
+					    <li class="next" onclick="getOld()"><a href="javascritp:getOld()" data-toggle="modal" data-target="#myModal">查看聊天记录 </a></li>
 					  </ul>
 					</nav>
 				 </div>
@@ -212,6 +269,37 @@ window.onbeforeunload = function() {
 			</div>
 		</div>
 	</div>
+	
+	
+
+
+
+	
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">聊天记录</h4>
+      </div>
+      <div class="modal-body">
+        	<div id="oldContent" style="height:250px;overflow-y:scroll;">
+			</div>
+      </div>
+       <div class="modal-footer">
+	        <nav>
+			  <ul class="pager">
+			    <li><a href="javascript:older()">前一页</a></li>
+			    <li><a href="javascript:newer()">后一页</a></li>
+			  </ul>
+			</nav>
+	  </div>
+
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
 <input type="hidden" id="nameToBe" value="${sessionScope.user.name }">
