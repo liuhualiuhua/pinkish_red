@@ -39,17 +39,17 @@ public class GoodsDaoImpl extends BaseDao implements GoodsDao {
 		if (goods.getPrice() != 0.0) {
 			sb.append(" and price > " + goods.getPrice() + " ");
 		}
-		String price=(String)map.get("price");
+		String price = (String) map.get("price");
 		if (price != null) {
 			sb.append(" and price < " + Double.parseDouble(price) + " ");
 		}
 		if (goods.getGoodsId() != 0) {
 			sb.append(" and goodsId = " + goods.getGoodsId() + " ");
 		}
-		String order=(String) map.get("order");
-		if(order!=null&&order.equals("asc")){
+		String order = (String) map.get("order");
+		if (order != null && order.equals("asc")) {
 			sb.append("order by price asc");
-		}else if(order!=null&&order.equals("desc")){
+		} else if (order != null && order.equals("desc")) {
 			sb.append("order by price desc");
 		}
 		sb.append(" ) ");
@@ -75,9 +75,9 @@ public class GoodsDaoImpl extends BaseDao implements GoodsDao {
 		if (goods.getGoodsId() != 0) {
 			sb.append(" and goodsId = " + goods.getGoodsId() + " ");
 		}
-		if(order!=null&&order.equals("asc")){
+		if (order != null && order.equals("asc")) {
 			sb.append(" order by price asc");
-		}else if(order!=null&&order.equals("desc")){
+		} else if (order != null && order.equals("desc")) {
 			sb.append(" order by price desc");
 		}
 
@@ -104,7 +104,7 @@ public class GoodsDaoImpl extends BaseDao implements GoodsDao {
 		} finally {
 			super.closeAll(conn, pstmt, rs);
 		}
-		
+
 		return list;
 	}
 
@@ -129,7 +129,7 @@ public class GoodsDaoImpl extends BaseDao implements GoodsDao {
 		if (goods.getPrice() != 0.0) {
 			sb.append(" and price > " + goods.getPrice() + " ");
 		}
-		String price=(String) map.get("price");
+		String price = (String) map.get("price");
 		if (price != null) {
 			sb.append(" and price < " + Double.parseDouble(price) + " ");
 		}
@@ -151,7 +151,7 @@ public class GoodsDaoImpl extends BaseDao implements GoodsDao {
 		} finally {
 			super.closeAll(conn, pstmt, rs);
 		}
-		
+
 		return total;
 	}
 
@@ -218,8 +218,39 @@ public class GoodsDaoImpl extends BaseDao implements GoodsDao {
 		} finally {
 			super.closeAll(conn, pstmt, rs);
 		}
-		
+
 		return result;
+	}
+
+	@Override
+	public Goods findById(int goodsId) {
+		Goods g = null;
+
+		try {
+			conn = super.getConn();
+			String sql = "select * from GOODS where goodsId=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, goodsId);
+			System.out.println(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				g = new Goods();
+				g.setGoodsId(rs.getInt(1));
+				g.setName(rs.getString(2));
+				g.setBrand(rs.getString(3));
+				g.setType(rs.getString(4));
+				g.setDescription(rs.getString(5));
+				g.setPrice(rs.getDouble(6));
+				g.setPic(rs.getString(7));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			super.closeAll(conn, pstmt, rs);
+		}
+
+		return g;
 	}
 
 }

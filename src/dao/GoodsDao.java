@@ -7,9 +7,9 @@ import entity.Goods;
 import entity.PageBean;
 
 public interface GoodsDao {
-	public List findGoodsByPage(PageBean pageBean, Goods goods,Map map);
+	public List findGoodsByPage(PageBean pageBean, Goods goods, Map map);
 
-	public int countGoodsByPage(PageBean pageBean, Goods goods,Map map);
+	public int countGoodsByPage(PageBean pageBean, Goods goods, Map map);
 
 	public int deleteGoodsByIds(String delIds);
 
@@ -17,4 +17,5 @@ public interface GoodsDao {
 
 	public int updateGoods(Goods goods);
 
+	public Goods findById(int goodsId);
 }
