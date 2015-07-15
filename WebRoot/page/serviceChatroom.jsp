@@ -42,7 +42,7 @@ function sendNote(userId,str){
 		function(date){
 			var date=$.parseJSON(date);
 			if(date.result){
-				alert("成功");
+				//alert("成功");
 			}else{
 				alert("失败");
 			}
@@ -195,47 +195,72 @@ $(document).ready(function(){
 					<div class="col-xs-4 col-sm-1">
 					</div>
 					<div class="col-xs-4 col-sm-11">
-					<table class="table table-hover table-bordered table-condensed"">
-						<thead>
-						<tr>
-							<td>未读消息</td>
-							<td>
-							<button type="button" class="btn btn-default btn-sm" onclick="refreshList()">
-							刷新列表  
-							</button>
-							</td>
-						</tr>
-						</thead>
-						<tbody id="tbody">						
-										
-						</tbody>
-					</table>
+					<div class="panel panel-primary">
+					  <div class="panel-heading">
+					  <h3 class="panel-title">未读消息</h3>
+					  </div>
+					  <div class="panel-body">
+						
+					    	<table class="table table-hover table-bordered table-condensed"">
+								<thead>
+								<tr>
+									<td>用户名</td>
+									<td>
+									<button type="button" class="btn btn-default btn-sm" onclick="refreshList()">
+									刷新列表  
+									</button>
+									</td>
+								</tr>
+								</thead>
+								<tbody id="tbody">						
+												
+								</tbody>
+							</table>
+					    
+					  </div>
+					</div>
+					
+					
+					
 <br></br>
 
-					<table class="table table-hover table-bordered table-condensed" >
-					  <thead>
-					  	<tr>
-					  		<td>历史记录</td>
-					  		<td>聊天记录</td>
-					  		<td>功能按钮</td>
-					  	</tr>
-					  </thead>
-					  <tbody id="oldTbody" >
-					  	<tr>
-					  		<td>用户名</td>
-					  		<td>
-						  		<button type="button" onclick="old(userId)" class="btn btn-default" data-toggle="modal" data-target="#myModal2">
-						  		点击查看
-								</button>
-					  		</td>
-					  		<td>
-					  			<button onclick="change('')" type="button" class="btn btn-default " data-toggle="modal" data-target="#myModal">
-								发起聊天
-								</button>
-					  		</td>
-					  	</tr>
-					  </tbody>
-					</table>
+						
+						<div class="panel panel-success">
+						  <div class="panel-heading">
+						    <h3 class="panel-title">历史记录</h3>
+						  </div>
+						  <div class="panel-body">
+							   
+							   <table class="table table-hover table-bordered table-condensed" >
+								  <thead>
+								  	<tr>
+								  		<td>历史记录</td>
+								  		<td>聊天记录</td>
+								  		<td>功能按钮</td>
+								  	</tr>
+								  </thead>
+								  <tbody id="oldTbody" >
+								  	<tr>
+								  		<td>用户名</td>
+								  		<td>
+									  		<button type="button" onclick="old(userId)" class="btn btn-default" data-toggle="modal" data-target="#myModal2">
+									  		点击查看
+											</button>
+								  		</td>
+								  		<td>
+								  			<button onclick="change('')" type="button" class="btn btn-default " data-toggle="modal" data-target="#myModal">
+											发起聊天
+											</button>
+								  		</td>
+								  	</tr>
+								  </tbody>
+								</table>
+							   
+						  </div>
+						</div>
+						
+						
+					
 
 
 
@@ -243,6 +268,35 @@ $(document).ready(function(){
 				</div>
 			</div>
 			<div class="col-sm-8">
+				
+				<div class="panel panel-default">
+				  <div class="panel-heading">
+				    <h3 class="panel-title">客服信息</h3>
+				  </div>
+				  <div class="panel-body">
+				    <br>
+				    
+				    <table class="table table-bordered table-hover">
+				    	<thead>
+				    		<tr>
+				    		<td rowspan="3" style="text-align:center"><img src="<%=users.getHead() %>" width="150px" height="150px" alt="头像" class="img-rounded"></td>
+				    		<td>用户名</td><td><%=users.getName() %></td>
+				    		</tr>
+				    		<tr>
+				    		<td>用户权限</td><td><%=users.getRole() %></td>
+				    		</tr>
+				    		<tr>
+				    			<td>用户ID</td><td><%=users.getUserId() %></td>
+				    		</tr>
+				    	</thead>
+				    	<tbody>
+				    	</tbody>
+					</table>
+				    
+				  </div>
+				</div>
+				
+				
 				
 			</div>
 		</div>

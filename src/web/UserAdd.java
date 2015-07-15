@@ -46,19 +46,26 @@ public class UserAdd extends HttpServlet {
 		UsersDao usersDao = new UsersDaoImpl();
 		JSONObject obj = new JSONObject();
 		int result = 0;
+		String errorMsg="保存失败";
 		
 		if (StringUtil.isNotEmpty(userId)) {
 			u.setUserId(Integer.parseInt(userId));
 			result = usersDao.updateUsers(u);
 		} else {
-			result = usersDao.addUsers(u);
+			Users users=usersDao.findByName(name);
+			if(users==null){
+				result = usersDao.addUsers(u);
+			}else{
+				errorMsg="用户名已存在";
+			}
+			
 		}
 
 		if (result > 0) {
 			obj.put("success", true);
 		} else {
 			obj.put("success", false);
-			obj.put("errorMsg", "保存失败");
+			obj.put("errorMsg", errorMsg);
 		}
 		PrintWriter out = response.getWriter();
 		out.println(obj);

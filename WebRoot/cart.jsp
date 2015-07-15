@@ -2,25 +2,23 @@
 	import="java.util.*,dao.*,dao.impl.*,entity.*,util.*"
 	pageEncoding="UTF-8"%>
 <%
-	String path = request.getContextPath();
+String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
 <base href="<%=basePath%>">
-
 <title>购物车</title>
-
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
 <link rel="stylesheet" href="css/reset.css" />
 <link rel="stylesheet" href="css/font-awesome.min.css" />
 <link rel="stylesheet" href="css/style.css" />
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/jquery-easyui-1.3.3/jquery.min.js"></script>
+	<script src="js/jquery_1.9.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/img-show.js"></script>
 </head>
 
 <body>
@@ -464,7 +462,7 @@ function updateItem(goodsId,count){
 		function(date){
 			date=$.parseJSON(date);
 			if(date.success){
-				alert("成功");
+				//alert("成功");
 			}else{
 				alert("失败");
 			}
@@ -479,7 +477,7 @@ function cleanItem(){
 		function(date){
 			date=$.parseJSON(date);
 			if(date.success){
-				alert("成功");
+				//alert("成功");
 			}else{
 				alert("失败");
 			}
@@ -489,6 +487,7 @@ function cleanItem(){
 function clearAll(){
 	if(confirm("确定要清空购物车吗？")){
 		cleanItem();
+		location.href="cart.jsp";
 	}
 }
 
@@ -578,8 +577,6 @@ $(document).ready(function(){
 	</div>
 
 
-	<script src="js/jquery_1.9.js"></script>
-	<script src="js/main.js"></script>
-	<script src="js/img-show.js"></script>
+
 </body>
 </html>

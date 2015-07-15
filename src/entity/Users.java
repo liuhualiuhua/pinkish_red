@@ -5,7 +5,7 @@ public class Users {
 	private String name;
 	private String pass;
 	/**
-	 * 1是顾客 ,2是客服,3 ,4 ,5是系统管理员
+	 * 1是顾客 ,2是客服,3是卖家 ,4是系统管理员 ,5是高级管理员
 	 */
 	private int role = -1;
 	private String head;

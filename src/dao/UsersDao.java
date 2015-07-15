@@ -20,5 +20,7 @@ public interface UsersDao {
 	
 	public Users findById(int userId);
 	
+	public Users findByName(String name);
+	
 	public int changePass(Users users);
 }

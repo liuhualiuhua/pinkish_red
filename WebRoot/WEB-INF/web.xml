@@ -12,6 +12,15 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/page/404.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/page/500.jsp</location>
+	</error-page>
+
 	<servlet>
 		<servlet-name>UserList</servlet-name>
 		<servlet-class>web.UserList</servlet-class>
@@ -108,14 +117,14 @@
 		<servlet-name>ItemAdd</servlet-name>
 		<servlet-class>web.ItemAdd</servlet-class>
 	</servlet>
-  <servlet>
-    <servlet-name>ItemUpdate</servlet-name>
-    <servlet-class>web.ItemUpdate</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>ItemDelete</servlet-name>
-    <servlet-class>web.ItemDelete</servlet-class>
-  </servlet>
+	<servlet>
+		<servlet-name>ItemUpdate</servlet-name>
+		<servlet-class>web.ItemUpdate</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ItemDelete</servlet-name>
+		<servlet-class>web.ItemDelete</servlet-class>
+	</servlet>
 
 
 
@@ -238,14 +247,14 @@
 		<servlet-name>ItemAdd</servlet-name>
 		<url-pattern>/ItemAdd</url-pattern>
 	</servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>ItemUpdate</servlet-name>
-    <url-pattern>/ItemUpdate</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>ItemDelete</servlet-name>
-    <url-pattern>/ItemDelete</url-pattern>
-  </servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ItemUpdate</servlet-name>
+		<url-pattern>/ItemUpdate</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ItemDelete</servlet-name>
+		<url-pattern>/ItemDelete</url-pattern>
+	</servlet-mapping>
 
 
 

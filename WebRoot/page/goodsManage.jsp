@@ -1,4 +1,11 @@
-<%@ page language="java" import="java.util.*" pageEncoding="GBK"%>
+<%@ page language="java" import="java.util.*,entity.*,dao.*,dao.impl.*,util.*" pageEncoding="GBK"%>
+ <%
+Users user=(Users)session.getAttribute("user");
+ if(user==null||user.getRole()<2){
+ response.sendRedirect("/pinkish_red/index.jsp");
+ return;
+ }
+  %> 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
@@ -55,9 +62,28 @@ KindEditor.ready(function(K) {
 <script type="text/javascript">
 var url;
 var decimalReg=/^\d{0,8}\.{0,1}(\d{1,2})?$/;
+var numReg=/^([0-9]*[1-9][0-9]*){1,}$/;
 function searchGoods(){
+	var ids=$("#s_goodsId").val();
+	var price1=$("#s_price1").val();
+	var price2=$("#s_price2").val();
+	
+	if(ids!=null&&ids.length>0&&!numReg.test(ids)){
+		$.messager.alert("系统提示","请输入正确的商品ID");
+		return;
+	}
+	
+	if(price1!=null&&price1.length>0&&!decimalReg.test(price1)){
+		$.messager.alert("系统提示","请输入正确的商品价格");
+		return;
+	}
+	if(price2!=null&&price2.length>0&&!decimalReg.test(price2)){
+		$.messager.alert("系统提示","请输入正确的商品价格");
+		return;
+	}
+	
 	$("#dg").datagrid('load', {
-		"id" : $("#s_newsId").val(),
+		"id" : $("#s_goodsId").val(),
 		"name":$("#s_name").val(),
 		"brand":$("#s_brand").val(),
 		"type":$("#s_type").val(),
@@ -135,8 +161,6 @@ function openGoodsModifyDialog(){
 		 $("#doc").val("");
 		 editor1.html("");
 		 $("#preview").css("display","none");
-		  
-		 
 	 }
 	 
 	 function closeGoodsDialog(){

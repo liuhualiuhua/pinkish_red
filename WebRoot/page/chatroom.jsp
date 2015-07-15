@@ -261,9 +261,9 @@ window.onbeforeunload = function() {
 				</div>
 			</div>
 			<div class="col-sm-3">
-				<br><b>在线人员</b><br>
+				<br><b></b><br>
 				<ul class="list-group" id="list-group">
-					<li class="list-group-item">Cras justo odio</li>
+					<li class="list-group-item">在线人员：</li>
 				</ul>
 
 			</div>

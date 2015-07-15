@@ -1,5 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" import="java.util.*,dao.*,dao.impl.*,entity.*" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%
+Users user=(Users)session.getAttribute("user");
+ if(user==null||user.getRole()<4){
+	 response.sendRedirect("/pinkish_red/index.jsp");
+	 return;
+ }
+  %>  
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -16,7 +23,14 @@
 	src="${pageContext.request.contextPath}/jquery-easyui-1.3.3/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript">
 	var url;
+	var numReg=/^([0-9]*[1-9][0-9]*){1,}$/;
 	function searchUser() {
+		var ids=$("#s_userId").val();
+		if(ids!=null&&ids.length>0&&!numReg.test(ids)){
+			$.messager.alert("系统提示","请输入正确的用户ID");
+			return;
+		}
+	
 		$("#dg").datagrid('load', {
 			"name" : $("#s_name").val(),
 			"id":$("#s_userId").val(),
@@ -57,7 +71,7 @@
 					$("#dlg").dialog("close");
 					$("#dg").datagrid("reload");
 				}else{
-					$.messager.alert("系统提示","保存失败！");
+					$.messager.alert("系统提示",result.errorMsg);
 					return;
 				}
 			}

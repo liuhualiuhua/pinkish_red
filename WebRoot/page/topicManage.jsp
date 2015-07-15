@@ -1,10 +1,17 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*,entity.*" pageEncoding="UTF-8"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
+ <%
+Users user=(Users)session.getAttribute("user");
+ if(user==null||user.getRole()<2){
+ response.sendRedirect("/pinkish_red/index.jsp");
+ return;
+ }
+  %>  
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -62,6 +69,32 @@ KindEditor.ready(function(K) {
 	var url;
 	
 	function searchTopic() {
+		var id=$("#s_topicId").val();
+		var numReg=/^([0-9]*[1-9][0-9]*){1,}$/;
+		
+		if(id!=null&&id.length>0){
+			if(!numReg.test(id)){
+				$.messager.alert("系统提示","请输入正确的留言ID");
+				return;
+			}
+		}
+		var userId=$("#s_userId").val();
+		if(userId!=null&&userId.length>0){
+			if(!numReg.test(userId)){
+				$.messager.alert("系统提示","请输入正确的用户ID");
+				return;
+			}
+		}
+		var reg=/^\d+$/;
+		var replyId=$("#s_replyId").val();
+		if(replyId!=null&&replyId.length>0){
+			if(!reg.test(replyId)){
+				$.messager.alert("系统提示","请输入正确的回复ID");
+				return;
+			}
+		}
+		
+	
 		$("#dg").datagrid('load', {
 			"id" : $("#s_topicId").val(),
 			"title":$("#s_title").val(),

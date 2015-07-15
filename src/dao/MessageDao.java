@@ -15,7 +15,6 @@ public interface MessageDao {
 	/**
 	 * 获取聊天室内未读的消息(不包括自己的)
 	 * @param messageId 最后一条读过的消息ID
-	 * @return
 	 */
 	public List getUnReadMessage(Message message);
 

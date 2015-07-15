@@ -1,4 +1,11 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*,entity.*" pageEncoding="UTF-8"%>
+ <%
+	Users user=(Users)session.getAttribute("user");
+	 if(user==null||user.getRole()<2){
+	 response.sendRedirect("/pinkish_red/index.jsp");
+	 return;
+	 }
+  %>  
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -15,7 +22,21 @@
 	src="${pageContext.request.contextPath}/jquery-easyui-1.3.3/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript">
 var url;
+var numReg=/^([0-9]*[1-9][0-9]*){1,}$/;
 function searchMessage(){
+	var ids=$("#s_messageId").val();
+	var userId=$("#s_userId").val();
+	
+	if(ids!=null&&ids.length>0&&!numReg.test(ids)){
+		$.messager.alert("系统提示","请输入正确的消息ID");
+		return;
+	}
+	if(userId!=null&&userId.length>0&&!numReg.test(userId)){
+		$.messager.alert("系统提示","请输入正确的用户ID");
+		return;
+	}
+
+
 	$("#dg").datagrid('load', {
 		"messageId" : $("#s_messageId").val(),
 		"userId":$("#s_userId").val(),

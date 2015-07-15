@@ -4,6 +4,7 @@
 Users user=(Users)session.getAttribute("user");
  if(user==null||user.getRole()<2){
  response.sendRedirect("/pinkish_red/index.jsp");
+ return;
  }
   %>   
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -82,10 +83,6 @@ Users user=(Users)session.getAttribute("user");
 			}
 		});
 	}
-	
-	
-	
-	
 </script>
 </head>
 <body class="easyui-layout">
@@ -114,10 +111,13 @@ Users user=(Users)session.getAttribute("user");
 			<a href="javascript:openTab('新闻信息管理','newsManage.jsp','icon-yxjhgl')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-yxjhgl'" style="width: 150px">新闻信息管理</a>
 			<a href="javascript:openTab('留言信息管理','topicManage.jsp','icon-khkfjh')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-khkfjh'" style="width: 150px">留言信息管理</a>
 		</div>
+		<% if(user.getRole()>=3){%>
 		<div title="商品管理"  data-options="iconCls:'icon-khgl'" style="padding:10px;">
 			<a href="javascript:openTab('商品信息管理','goodsManage.jsp','icon-khxxgl')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-khxxgl'" style="width: 150px;">商品信息管理</a>
 			<a href="javascript:openTab('订单信息管理','customerLossManage.jsp','icon-khlsgl')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-khlsgl'" style="width: 150px;">订单信息管理</a>
 		</div>
+		<% }%>
+		<% if(user.getRole()>=6){%>
 		<div title="服务管理" data-options="iconCls:'icon-tjbb'" style="padding:10px">
 			<a href="javascript:openTab('服务创建','customerServiceCreate.jsp','icon-fwcj')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-fwcj'" style="width: 150px;">服务创建</a>
 			<a href="javascript:openTab('服务分配','customerServiceAssign.jsp','icon-fwfp')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-fwfp'" style="width: 150px;">服务分配</a>
@@ -125,17 +125,21 @@ Users user=(Users)session.getAttribute("user");
 			<a href="javascript:openTab('服务反馈','customerServiceFeedback.jsp','icon-fwfk')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-fwfk'" style="width: 150px;">服务反馈</a>
 			<a href="javascript:openTab('服务归档','customerServiceFile.jsp','icon-fwgd')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-fwgd'" style="width: 150px;">服务归档</a>
 		</div>
+		<% }%>
 		<div title="客服专区"  data-options="iconCls:'icon-fwgl'" style="padding:10px">
 			<a href="javascript:openTab('前台聊天室','chatroom.jsp','icon-khgcfx')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-khgcfx'" style="width: 150px;">前台聊天室</a>
 			<a href="javascript:openTab('前台聊天信息管理','messageManage.jsp','icon-khgxfx')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-khgxfx'" style="width: 150px;">前台聊天信息管理</a>
 			<a href="javascript:openTab('客服聊天室','serviceChatroom.jsp','icon-khfwfx')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-khfwfx'" style="width: 150px;">客服聊天室</a>
 			<a href="javascript:openTab('客服聊天信息管理','noteManage.jsp','icon-khlsfx')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-khlsfx'" style="width: 150px;">客服聊天信息管理</a>
 		</div>
+		<% if(user.getRole()>=4){%>
 		<div title="基础数据管理"  data-options="iconCls:'icon-jcsjgl'" style="padding:10px">
-			<a href="javascript:openTab('数据字典管理','dataDicManage.jsp','icon-sjzdgl')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-sjzdgl'" style="width: 150px;">数据字典管理</a>
-			<a href="javascript:openTab('产品信息查询','productSearch.jsp','icon-cpxxgl')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-cpxxgl'" style="width: 150px;">产品信息查询</a>
+			<a href="javascript:openTab('404页面','404.jsp','icon-sjzdgl')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-sjzdgl'" style="width: 150px;">404页面</a>
+			<a href="javascript:openTab('500页面','500.jsp','icon-cpxxgl')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-cpxxgl'" style="width: 150px;">500页面</a>
+			<a href="javascript:openTab('网站简介','about.jsp','icon-fwcj')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-fwcj'" style="width: 150px;">网站简介</a>
 			<a href="javascript:openTab('用户信息管理','userManage.jsp','icon-user')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-user'" style="width: 150px;">用户信息管理</a>
 		</div>
+		 <% }%>
 		<div title="系统管理"  data-options="iconCls:'icon-item'" style="padding:10px">
 			<a href="javascript:openPasswordModifyDialog()" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-modifyPassword'" style="width: 150px;">修改密码</a>
 			<a href="javascript:logout()" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-exit'" style="width: 150px;">安全退出</a>

@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"
+<%@ page language="java" import="java.util.*,entity.*" pageEncoding="UTF-8"
 	contentType="text/html; charset=UTF-8"%>
 <%
 	String path = request.getContextPath();
@@ -6,6 +6,13 @@
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
+ <%
+Users user=(Users)session.getAttribute("user");
+ if(user==null||user.getRole()<2){
+ response.sendRedirect("/pinkish_red/index.jsp");
+ return;
+ }
+  %>  
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -62,6 +69,15 @@ KindEditor.ready(function(K) {
 <script type="text/javascript">
 var url;
 function searchNews(){
+	var id=$("#s_newsId").val();
+	var numReg=/^([0-9]*[1-9][0-9]*){1,}$/; 
+	if(id!=null&&id.length>0){
+		if(!numReg.test(id)){
+			$.messager.alert("系统提示","请输入正确的新闻ID");
+			return;
+		}
+	}
+	
 	$("#dg").datagrid('load', {
 		"id" : $("#s_newsId").val(),
 		"title":$("#s_title").val(),
