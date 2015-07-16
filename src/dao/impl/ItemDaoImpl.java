@@ -21,7 +21,7 @@ public class ItemDaoImpl extends BaseDao implements ItemDao {
 
 		try {
 			conn = super.getConn();
-			String sql = "select * from ITEM where userId=?";
+			String sql = "select * from ITEM where userId=? and status=0";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, userId);
 			System.out.println(sql);
@@ -32,6 +32,7 @@ public class ItemDaoImpl extends BaseDao implements ItemDao {
 				item.setGoodsId(rs.getInt(2));
 				item.setCount(rs.getInt(3));
 				item.setUserId(rs.getInt(4));
+				item.setStatus(rs.getInt(5));
 				list.add(item);
 			}
 
@@ -58,6 +59,8 @@ public class ItemDaoImpl extends BaseDao implements ItemDao {
 		if (item.getUserId() != 0) {
 			sb.append(" and userId=" + item.getUserId() + " ");
 		}
+		sb.append(" and status=0 ");
+
 		try {
 			conn = super.getConn();
 			pstmt = conn.prepareStatement(sb.toString().replaceFirst("and",
@@ -86,7 +89,7 @@ public class ItemDaoImpl extends BaseDao implements ItemDao {
 		int result = 0;
 		try {
 			conn = super.getConn();
-			String sql = "insert into ITEM values(?,?,?)";
+			String sql = "insert into ITEM values(?,?,?,0)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, item.getGoodsId());
 			pstmt.setInt(2, item.getCount());
@@ -107,7 +110,7 @@ public class ItemDaoImpl extends BaseDao implements ItemDao {
 		int result = 0;
 		try {
 			conn = super.getConn();
-			String sql = "update ITEM set count=? where itemId=?";
+			String sql = "update ITEM set count=? where itemId=? and status=0";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, item.getCount());
 			pstmt.setInt(2, item.getItemId());
@@ -127,7 +130,7 @@ public class ItemDaoImpl extends BaseDao implements ItemDao {
 		int result = 0;
 		try {
 			conn = super.getConn();
-			String sql = "update ITEM set count=? where userId=? and goodsId=?";
+			String sql = "update ITEM set count=? where userId=? and goodsId=? and status=0";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, item.getCount());
 			pstmt.setInt(2, item.getUserId());
@@ -161,13 +164,14 @@ public class ItemDaoImpl extends BaseDao implements ItemDao {
 
 		return result;
 	}
+
 	@Override
-	public int deleteItemByUser(Item item){
+	public int deleteItemByUser(Item item) {
 		int result = 0;
 
 		try {
 			conn = super.getConn();
-			String sql = "delete from ITEM where goodsId=? and userId=?";
+			String sql = "delete from ITEM where goodsId=? and userId=? and status=0";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, item.getGoodsId());
 			pstmt.setInt(2, item.getUserId());
@@ -180,7 +184,7 @@ public class ItemDaoImpl extends BaseDao implements ItemDao {
 		}
 
 		return result;
-		
+
 	}
 
 	@Override
@@ -189,7 +193,7 @@ public class ItemDaoImpl extends BaseDao implements ItemDao {
 
 		try {
 			conn = super.getConn();
-			String sql = "delete from ITEM where userId=?";
+			String sql = "delete from ITEM where userId=? and status=0";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, userId);
 			System.out.println(sql);
@@ -201,6 +205,47 @@ public class ItemDaoImpl extends BaseDao implements ItemDao {
 		}
 
 		return result;
+	}
+
+	@Override
+	public int orderByUsersId(Item item) {
+		int result = 0;
+		try {
+			conn = super.getConn();
+			String sql = "update ITEM set status=? where userId=? and status=0";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, item.getStatus());
+			pstmt.setInt(2, item.getUserId());
+			System.out.println(sql);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			super.closeAll(conn, pstmt, rs);
+		}
+		return result;
+	}
+
+	@Override
+	public Double checkMoney(int userId) {
+		Double total = 0.0;
+
+		try {
+			conn = super.getConn();
+			String sql = "select g.price,i.count from GOODS g,ITEM i where g.goodsId=i.goodsId and i.userId=? and i.status=0";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userId);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				total += rs.getDouble(1) * rs.getInt(2);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			super.closeAll(conn, pstmt, rs);
+		}
+
+		return total;
 	}
 
 }

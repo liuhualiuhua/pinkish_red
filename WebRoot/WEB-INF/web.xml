@@ -125,6 +125,26 @@
 		<servlet-name>ItemDelete</servlet-name>
 		<servlet-class>web.ItemDelete</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>OrderAdd</servlet-name>
+		<servlet-class>web.OrderAdd</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>OrderList</servlet-name>
+		<servlet-class>web.OrderList</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>OrderCommit</servlet-name>
+		<servlet-class>web.OrderCommit</servlet-class>
+	</servlet>
+  <servlet>
+    <servlet-name>OrderReset</servlet-name>
+    <servlet-class>web.OrderReset</servlet-class>
+  </servlet>
+
+
+
+
 
 
 
@@ -255,6 +275,22 @@
 		<servlet-name>ItemDelete</servlet-name>
 		<url-pattern>/ItemDelete</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>OrderAdd</servlet-name>
+		<url-pattern>/OrderAdd</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>OrderList</servlet-name>
+		<url-pattern>/OrderList</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>OrderCommit</servlet-name>
+		<url-pattern>/OrderCommit</url-pattern>
+	</servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>OrderReset</servlet-name>
+    <url-pattern>/OrderReset</url-pattern>
+  </servlet-mapping>
 
 
 

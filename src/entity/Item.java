@@ -5,6 +5,10 @@ public class Item {
 	private int goodsId;
 	private int count;
 	private int userId;
+	/**
+	 * orderId
+	 */
+	private int status;
 
 	public int getItemId() {
 		return itemId;
@@ -37,5 +41,15 @@ public class Item {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+	
+	
 
 }

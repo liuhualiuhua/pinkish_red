@@ -187,7 +187,7 @@ function sendMessage(content){
 		function(date){
 			var date=$.parseJSON(date);
 			if(date.success){
-				alert("成功");
+				//alert("成功");
 			}else{
 				alert("失败");
 			}
@@ -295,6 +295,7 @@ window.onbeforeunload = function() {
 			  </ul>
 			</nav>
 	  </div>
+
 
     </div>
   </div>

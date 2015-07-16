@@ -114,7 +114,7 @@ Users user=(Users)session.getAttribute("user");
 		<% if(user.getRole()>=3){%>
 		<div title="商品管理"  data-options="iconCls:'icon-khgl'" style="padding:10px;">
 			<a href="javascript:openTab('商品信息管理','goodsManage.jsp','icon-khxxgl')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-khxxgl'" style="width: 150px;">商品信息管理</a>
-			<a href="javascript:openTab('订单信息管理','customerLossManage.jsp','icon-khlsgl')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-khlsgl'" style="width: 150px;">订单信息管理</a>
+			<a href="javascript:openTab('订单信息管理','orderManage.jsp','icon-khlsgl')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-khlsgl'" style="width: 150px;">订单信息管理</a>
 		</div>
 		<% }%>
 		<% if(user.getRole()>=6){%>

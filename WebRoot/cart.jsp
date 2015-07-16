@@ -373,7 +373,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td></td>
 			<td>总价：</td>
 			<td id="total" style="color:red"></td>
-			<td><input type="button" value="提交订单" onclick=""></td>
+			<td><input type="button" value="提交订单" onclick="checkOut()"></td>
 		</tr>
 		<%
 			}
@@ -490,6 +490,22 @@ function clearAll(){
 		location.href="cart.jsp";
 	}
 }
+
+function checkOut(){
+	$.post(
+		"OrderAdd",
+		function(date){
+			date=$.parseJSON(date);
+			if(date.success){
+				alert("成功");
+				location.href="order.jsp";
+			}else{
+				alert("失败");
+			}
+		}
+	);
+}
+
 
 $(document).ready(function(){
 	calTotal();

@@ -21,5 +21,9 @@ public interface ItemDao {
 	public int deleteItemByUser(Item item);
 
 	public int clearItem(int userId);
+	
+	public int orderByUsersId(Item item);
+	
+	public Double checkMoney(int userId);
 
 }

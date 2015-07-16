@@ -157,14 +157,15 @@ function openNewsModifyDialog(){
 		 var ids=strIds.join(",");
 		 $.messager.confirm("系统提示","您确定要删除这<font color=red>"+selectedRows.length+"</font>条数据吗？",function(r){
 			if(r){
-				$.post("${pageContext.request.contextPath}/NewsDelete",{ids:ids},function(result){
+				$.post("${pageContext.request.contextPath}/NewsDelete",{ids:ids},function(date){
+					date=$.parseJSON(date);
 					if(result.success){
-						 $.messager.alert("系统提示","已成功删除<font color=red>"+result.delNums+"</font>条数据!");
+						 $.messager.alert("系统提示","已成功删除<font color=red>"+date.delNums+"</font>条数据!");
 						 $("#dg").datagrid("reload");
 					}else{
 						$.messager.alert("系统提示","数据删除失败，请联系系统管理员！");
 					}
-				},"json");
+				});
 			} 
 		 });
 	 }
