@@ -1,8 +1,9 @@
 package dao;
 
-import java.sql.ResultSet;
 import java.util.List;
 import java.util.Map;
+
+import com.alibaba.fastjson.JSONArray;
 
 import entity.Order;
 import entity.PageBean;
@@ -27,6 +28,6 @@ public interface OrderDao {
 	
 	public int comfirmOrder(String ids);
 	
-	public ResultSet getDetailResultSet(Order order);
+	public JSONArray getDetailResultSet(Order order);
 
 }

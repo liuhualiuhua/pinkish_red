@@ -25,7 +25,7 @@ public class OrderAdd extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		this.doPost(request, response);
 	}
 
@@ -39,7 +39,7 @@ public class OrderAdd extends HttpServlet {
 		HttpSession session = request.getSession();
 		Users users = (Users) session.getAttribute("user");
 		if (users == null) {
-			obj.put("result", false);
+			obj.put("success", false);
 			out.println(obj);
 			out.flush();
 			out.close();
@@ -48,13 +48,22 @@ public class OrderAdd extends HttpServlet {
 		OrderDao orderDao = new OrderDaoImpl();
 		ItemDao itemDao = new ItemDaoImpl();
 		Order order = new Order();
-		
-		Double price=itemDao.checkMoney(users.getUserId());
+
+		Double price = itemDao.checkMoney(users.getUserId());
+		if (price <= 0.0) {
+			obj.put("success", false);
+			out.println(obj);
+			out.flush();
+			out.close();
+			return;
+		}
+
 		order.setUserId(users.getUserId());
-		order.setPostTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+		order.setPostTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+				.format(new Date()));
 		order.setStatus("ÒÑÌá½»");
 		order.setPrice(price);
-		
+
 		int orderId = orderDao.add(order);
 		int result = 0;
 		if (orderId > 0) {

@@ -408,7 +408,7 @@ function lessCount(goodsId){
 function makeSure(goodsId){
 	if(confirm("确定要移除这件商品吗？")){
 		str.splice($.inArray(goodsId,str),1);
-			removetr(goodsId);
+		removetr(goodsId);
 	}
 }
 

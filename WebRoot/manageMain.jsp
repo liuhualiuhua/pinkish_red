@@ -136,7 +136,7 @@ Users user=(Users)session.getAttribute("user");
 		<div title="基础数据管理"  data-options="iconCls:'icon-jcsjgl'" style="padding:10px">
 			<a href="javascript:openTab('404页面','404.jsp','icon-sjzdgl')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-sjzdgl'" style="width: 150px;">404页面</a>
 			<a href="javascript:openTab('500页面','500.jsp','icon-cpxxgl')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-cpxxgl'" style="width: 150px;">500页面</a>
-			<a href="javascript:openTab('网站简介','about.jsp','icon-fwcj')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-fwcj'" style="width: 150px;">网站简介</a>
+			<a href="javascript:openTab('网站简介','../about.jsp','icon-fwcj')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-fwcj'" style="width: 150px;">网站简介</a>
 			<a href="javascript:openTab('用户信息管理','userManage.jsp','icon-user')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-user'" style="width: 150px;">用户信息管理</a>
 		</div>
 		 <% }%>

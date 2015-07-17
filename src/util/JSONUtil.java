@@ -2,12 +2,14 @@ package util;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 public class JSONUtil {
-	public static JSONArray formatRsToJsonArray(ResultSet rs) throws Exception {
+	public static JSONArray formatRsToJsonArray(ResultSet rs)
+			throws SQLException {
 
 		ResultSetMetaData md = rs.getMetaData();
 		int num = md.getColumnCount();

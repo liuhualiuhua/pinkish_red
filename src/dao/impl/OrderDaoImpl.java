@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.alibaba.fastjson.JSONArray;
+
+import util.JSONUtil;
 import util.StringUtil;
 import dao.OrderDao;
 import entity.Goods;
@@ -184,7 +187,8 @@ public class OrderDaoImpl extends BaseDao implements OrderDao {
 		return list;
 	}
 
-	public ResultSet getDetailResultSet(Order order) {
+	public JSONArray getDetailResultSet(Order order) {
+		JSONArray array = null;
 		try {
 			conn = super.getConn();
 			String sql = "select g.goodsId,g.name,g.brand,g.type,g.price,i.count,i.count*g.price as total from GOODS g,ITEM i,ORDERS o where g.goodsId=i.goodsId and i.status=o.orderId and o.orderId=?";
@@ -192,10 +196,13 @@ public class OrderDaoImpl extends BaseDao implements OrderDao {
 			pstmt.setInt(1, order.getOrderId());
 			System.out.println(sql);
 			rs = pstmt.executeQuery();
+			array = JSONUtil.formatRsToJsonArray(rs);
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			super.closeAll(conn, pstmt, rs);
 		}
-		return rs;
+		return array;
 	}
 
 	@Override

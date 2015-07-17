@@ -51,14 +51,7 @@ public class OrderDetail extends HttpServlet {
 		OrderDao orderDao = new OrderDaoImpl();
 		Order order = new Order();
 		order.setOrderId(Integer.parseInt(orderId));
-		JSONArray array = null;
-		try {
-			array = JSONUtil.formatRsToJsonArray(orderDao
-					.getDetailResultSet(order));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
+		JSONArray array = orderDao.getDetailResultSet(order);
 		obj.put("rows", array);
 		out.println(obj);
 		out.flush();
