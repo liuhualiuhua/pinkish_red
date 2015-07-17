@@ -205,18 +205,18 @@ KindEditor.ready(function(K) {
 </head>
 
 <body>
-	<table id="dg" title="用户管理" class="easyui-datagrid"
+	<table id="dg" title="留言管理" class="easyui-datagrid"
    fitColumns="true" pagination="true" rownumbers="true"
    url="${pageContext.request.contextPath}/TopicList" fit="true" toolbar="#tb">
    <thead>
    	<tr>
    		<th field="cb" checkbox="true" align="center"></th>
-   		<th field="topicId" width="20" align="center">编号</th>
+   		<th field="topicId" width="18" align="center">编号</th>
    		<th field="title" width="40" align="center">标题</th>
    		<th field="content" width="100" align="center">内容</th>
-   		<th field="userId" width="20" align="center">用户ID</th>
-   		<th field="userName" width="30" align="center">用户ID</th>
-   		<th field="replyId" width="20" align="center">回复帖子ID</th>
+   		<th field="userId" width="15" align="center">用户ID</th>
+   		<th field="userName" width="25" align="center">用户ID</th>
+   		<th field="replyId" width="18" align="center">回复帖子ID</th>
    		<th field="postTime" width="30" align="center">发表时间</th>
    	</tr>
    </thead>

@@ -187,7 +187,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<td><%=order2.getPrice() %></td>
 	<td><%=order2.getPostTime() %></td>
 	<td><%=order2.getStatus() %></td>
-	<td><input type="button" value="查看详情"></td>
+	<td>
+		<% if(order2.getStatus().equals("已提交")){ %>
+		<input type="button" value="查看详情">
+		<% }else if(order2.getStatus().equals("已发货")){%>
+		<input type="button" value="查看详情">
+		<input type="button" value="确认收货">
+		<% }else if(order2.getStatus().equals("已退回")){%>
+		<input type="button" value="查看详情">
+		<% }else if(order2.getStatus().equals("交易成功")){ %>
+		<input type="button" value="查看详情">
+		<%} %>
+		
+		
+	</td>
 </tr>
 
 <%} %>

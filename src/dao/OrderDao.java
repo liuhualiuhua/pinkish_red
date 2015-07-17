@@ -1,5 +1,6 @@
 package dao;
 
+import java.sql.ResultSet;
 import java.util.List;
 import java.util.Map;
 
@@ -25,5 +26,7 @@ public interface OrderDao {
 	public int resetOrder(String ids);
 	
 	public int comfirmOrder(String ids);
+	
+	public ResultSet getDetailResultSet(Order order);
 
 }

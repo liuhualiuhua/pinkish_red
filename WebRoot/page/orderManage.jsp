@@ -60,11 +60,11 @@ function commitOrder(){
 		strIds.push(row.orderId);
 	}
 	var ids=strIds.join(",");
-	$.messager.confirm("系统提示","您确定要<font color=red>发货"+selectedRows.length+"</font>条订单吗？",function(r){
+	$.messager.confirm("系统提示","您确定要<font color=red>发货"+selectedRows.length+"条</font>订单吗？",function(r){
 		if(r){
 			$.post("OrderCommit",{ids:ids},function(date){
 				if(date.success){
-						 $.messager.alert("系统提示","已成功将<font color=red>"+date.delNums+"</font>条订单发货!");
+						 $.messager.alert("系统提示","已成功将<font color=red>"+date.delNums+"条</font>订单发货!");
 						 $("#dg").datagrid("reload");
 					}else{
 						$.messager.alert("系统提示","订单发货失败，请联系系统管理员！");
@@ -90,6 +90,7 @@ function returnOrder(){
 		strIds.push(row.orderId);
 	}
 	var ids=strIds.join(",");
+	
 	$.messager.confirm("系统提示","您确定要<font color=red>退回"+selectedRows.length+"条</font>订单吗？",function(r){
 		if(r){
 			$.post("OrderReset",{ids:ids},function(date){
@@ -105,11 +106,10 @@ function returnOrder(){
 }
 
 
-
 </script>
   </head>
   <body>
-    <table id="dg" title="订单详情" class="easyui-datagrid" fitColumns="true"
+    <table id="dg" title="订单列表" class="easyui-datagrid" fitColumns="true"
 		pagination="true" pageSize:"20"  rownumbers="true"
 		url="${pageContext.request.contextPath}/OrderList" fit="true"
 		toolbar="#tb">
@@ -158,34 +158,58 @@ function returnOrder(){
  	</div>
  	
  	
- 	<div id="dlg" class="easyui-dialog" style="width:650px;height:380px;padding: 10px 20px"
+ 	<div id="dlg" class="easyui-dialog" style="width:800px;height:400px;padding: 10px 20px"
    closed="true" buttons="#dlg-buttons">
-   
-   <form id="fm" method="post">
-   	<table cellspacing="8px">
-   		<tr>
-   			<td>标题：</td>
-   			<td><input type="text" id="title" name="title" class="easyui-validatebox" autocomplete="off" required="true"/>&nbsp;<font color="red">*</font></td>
-   			<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-   			<td></td>
-   			<td></td>
-   		</tr>
-   		<tr>
-   		<td>新闻内容：</td>
-   			<td colspan="4">
-   				<br>
-   				<textarea id="content" name="content" cols="100" rows="6" style="width:100%;height:150px;visibility:hidden;"></textarea>
-   			</td>
-   		</tr>
-   	</table>
-   </form>
- </div>
+   		<table id="dgdg" title="订单详情" class="easyui-datagrid" fitColumns="true"
+		 url="${pageContext.request.contextPath}/OrderDetail"   fit="true">
+		<thead>
+			<tr>
+				<th field="goodsId" width="20" align="center">商品ID</th>
+				<th field="name" width="50" align="center">名称</th>
+				<th field="brand" width="50" align="center">品牌</th>
+				<th field="type" width="50" align="center">型号</th>
+				<th field="price" width="30" align="center">单价</th>
+				<th field="count" width="30" align="center">数量</th>
+				<th field="total" width="30" align="center">价格</th>
+			</tr>
+		</thead>
+	</table>
+   		
+ 	</div>
  
  <div id="dlg-buttons">
- 	<a href="javascript:saveNews()" class="easyui-linkbutton" iconCls="icon-ok">保存</a>
- 	<a href="javascript:closeNewsDialog()" class="easyui-linkbutton" iconCls="icon-cancel">关闭</a>
+ 	<!-- <a href="javascript:saveNews()" class="easyui-linkbutton" iconCls="icon-ok">保存</a> -->
+ 	<a href="javascript:closeDialog()" class="easyui-linkbutton" iconCls="icon-cancel">关闭</a>
  </div>
- 	 	
- 	
+<script type="text/javascript">
+function openOrderDetailDialog(){
+	var selectedRows=$("#dg").datagrid("getSelections");
+	if(selectedRows.length!=1){
+		$.messager.alert("系统提示","请选择一条要查看的订单！");
+		return;
+	}
+	 var row=selectedRows[0];
+	  
+	 $("#dlg").dialog("open").dialog("setTitle","订单详情");
+	
+	$("#dgdg").datagrid('load', {
+		"orderId":row.orderId
+	});
+
+	 /* $.get("OrderDetail",{orderId:row.orderId},function(date){
+	 	var date=$.parseJSON(date);
+	 	if(date.success){
+	 		date.list.forEach(function(item){
+	 		var str="<p>"+item.goodsId+" <img src='"+item.pic+"' width='30' height='30'>"+item.name+""+item.price+"</p>";
+	 		$("dlg").append(str);
+	 		});
+	 	}
+	 }); */
+
+}
+function closeDialog(){
+	$("#dlg").dialog("close");
+}
+</script>
   </body>
 </html>

@@ -78,7 +78,7 @@ function getMessage(){
 						}
 					}
 				);
-				$("#boardPanel").scrollTop("1500");
+				$("#boardPanel").scrollTop("11500");
 			}
 		}
 	);
@@ -115,7 +115,7 @@ function getUnReadMsg(){
 						}
 					}
 				);	
-				$("#boardPanel").scrollTop("1500");
+				$("#boardPanel").scrollTop("15000");
 				}
 			}
 		}
@@ -145,7 +145,7 @@ function getOldMessage(){
 						$("#oldContent").append(str);
 					}
 				);
-				$("#oldContent").scrollTop("1500");
+				$("#oldContent").scrollTop("15000");
 			}else{
 				alert("没有更多内容");
 				pages=pages-1;
@@ -158,14 +158,14 @@ function getOld(){
 	$("#oldContent").empty();
 	pages=1;
 	getOldMessage();
-	$("#oldContent").scrollTop("2500");
+	$("#oldContent").scrollTop("25000");
 }
 
 function older(){
 	
 	pages=pages+1;
 	getOldMessage();
-	$("#oldContent").scrollTop("2500");
+	$("#oldContent").scrollTop("25000");
 }
 
 function newer(){
@@ -177,7 +177,7 @@ function newer(){
 		alert("没有更多内容");
 		return;
 	}
-	$("#oldContent").scrollTop("2500");
+	$("#oldContent").scrollTop("25000");
 }
 
 function sendMessage(content){
@@ -199,7 +199,7 @@ function change(){
 	var str=editor1.html();
 	sendMessage(str);
 	$("#boardPanel").append("<p>"+$("#nameToBe").val()+": <br>"+str+"</p>");
-	$("#boardPanel").scrollTop("1000");
+	$("#boardPanel").scrollTop("10000");
 	if($("#boardPanel").scrollTop()>=500){
 		$("p:first").remove();
 	}

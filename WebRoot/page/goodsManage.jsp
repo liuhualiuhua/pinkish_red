@@ -236,7 +236,7 @@ function changeVal(stext){
   </head>
   
   <body>
-    <table id="dg" title="新闻管理" class="easyui-datagrid" fitColumns="true"
+    <table id="dg" title="商品管理" class="easyui-datagrid" fitColumns="true"
 		pagination="true" pageSize:"20"  rownumbers="true"
 		url="${pageContext.request.contextPath}/GoodsList" fit="true"
 		toolbar="#tb">
@@ -244,12 +244,12 @@ function changeVal(stext){
 			<tr>
 				<th field="cb" checkbox="true" align="center"></th>
 				<th field="goodsId" width="10" align="center">商品ID</th>
-				<th field="name" width="10" align="center">名称</th>
-				<th field="brand" width="20" align="center">品牌</th>
+				<th field="name" width="20" align="center">名称</th>
+				<th field="brand" width="10" align="center">品牌</th>
 				<th field="type" width="20" align="center">型号</th>
 				<th field="description" width="30" align="center">描述</th>
 				<th field="price" width="10" align="center">价格</th>
-				<th field="pic" width="30" align="center">图片</th>
+				<th field="pic" width="20" align="center">图片</th>
 			</tr>
 		</thead>
 	</table>

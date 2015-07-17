@@ -53,7 +53,7 @@ public class OrderDaoImpl extends BaseDao implements OrderDao {
 		String sort = (String) map.get("sort2");
 		if (StringUtil.isNotEmpty(sort)) {
 			sb.append(sort);
-		}else{
+		} else {
 			sb.append("order by orderId desc ");
 		}
 		sb.append(" ) ");
@@ -80,7 +80,7 @@ public class OrderDaoImpl extends BaseDao implements OrderDao {
 		}
 		if (StringUtil.isNotEmpty(sort)) {
 			sb.append(sort);
-		}else{
+		} else {
 			sb.append("order by orderId desc ");
 		}
 
@@ -159,11 +159,11 @@ public class OrderDaoImpl extends BaseDao implements OrderDao {
 		List list = new ArrayList();
 		try {
 			conn = super.getConn();
-			String sql = "select g.* from GOODS g,ITEM i,ORDERS o where g.goodsId=i.goodsId and i.status=o.orderId and o.orderId=?";
+			String sql = "select g.*,i.count from GOODS g,ITEM i,ORDERS o where g.goodsId=i.goodsId and i.status=o.orderId and o.orderId=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, order.getOrderId());
+			System.out.println(sql);
 			rs = pstmt.executeQuery();
-
 			while (rs.next()) {
 				Goods g = new Goods();
 				g.setGoodsId(rs.getInt(1));
@@ -181,7 +181,21 @@ public class OrderDaoImpl extends BaseDao implements OrderDao {
 			super.closeAll(conn, pstmt, rs);
 		}
 
-		return null;
+		return list;
+	}
+
+	public ResultSet getDetailResultSet(Order order) {
+		try {
+			conn = super.getConn();
+			String sql = "select g.goodsId,g.name,g.brand,g.type,g.price,i.count,i.count*g.price as total from GOODS g,ITEM i,ORDERS o where g.goodsId=i.goodsId and i.status=o.orderId and o.orderId=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, order.getOrderId());
+			System.out.println(sql);
+			rs = pstmt.executeQuery();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return rs;
 	}
 
 	@Override

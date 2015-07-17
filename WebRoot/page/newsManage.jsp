@@ -180,11 +180,11 @@ function openNewsModifyDialog(){
 		<thead>
 			<tr>
 				<th field="cb" checkbox="true" align="center"></th>
-				<th field="newsId" width="20" align="center">新闻ID</th>
+				<th field="newsId" width="10" align="center">新闻ID</th>
 				<th field="title" width="50" align="center">标题</th>
 				<th field="content" width="100" align="center">内容</th>
-				<th field="postTime" width="40" align="center">发表时间</th>
-				<th field="userId" width="20" align="center">作者ID</th>
+				<th field="postTime" width="30" align="center">发表时间</th>
+				<th field="userId" width="10" align="center">作者ID</th>
 			</tr>
 		</thead>
 	</table>
