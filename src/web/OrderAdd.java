@@ -38,16 +38,23 @@ public class OrderAdd extends HttpServlet {
 		JSONObject obj = new JSONObject();
 		HttpSession session = request.getSession();
 		Users users = (Users) session.getAttribute("user");
-		if (users == null) {
-			obj.put("success", false);
+		OrderDao orderDao = new OrderDaoImpl();
+		ItemDao itemDao = new ItemDaoImpl();
+		Order order = new Order();
+		Cart cart = (Cart) session.getAttribute("cart");
+		/**
+		 * 这个功能还需要仔细思考一下
+		 */
+		/*if (cart != null) {
+			
+			
+			obj.put("success", true);
 			out.println(obj);
 			out.flush();
 			out.close();
 			return;
-		}
-		OrderDao orderDao = new OrderDaoImpl();
-		ItemDao itemDao = new ItemDaoImpl();
-		Order order = new Order();
+		}*/
+		
 
 		Double price = itemDao.checkMoney(users.getUserId());
 		if (price <= 0.0) {

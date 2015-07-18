@@ -5,6 +5,13 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
+ <%
+Users user=(Users)session.getAttribute("user");
+ if(user==null){
+ response.sendRedirect("/pinkish_red/cart.jsp");
+ return;
+ }
+  %> 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>

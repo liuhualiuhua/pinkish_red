@@ -7,22 +7,27 @@
 	String password = request.getParameter("pass");
 	String check = request.getParameter("check");
 	String code = (String) session.getAttribute("check");
-
+	
+	
 	if (StringUtil.isEmpty(check) || !code.equalsIgnoreCase(check)) {
 		request.setAttribute("error", "验证码错误");
 		request.setAttribute("name", userName);
 		request.setAttribute("pass", password);
 		request.getRequestDispatcher("/manageLogin.jsp").forward(
-				request, response);
+		request, response);
 		return;
 	}
+	
+	
+	
 	UsersDao usersDao = new UsersDaoImpl();
 	Users u = new Users();
 	u.setName(userName);
 	u.setPass(password);
 
 	Users user = usersDao.login(u);
-
+	
+	
 	if (user != null && user.getRole() >= 2) {
 		session.setAttribute("user", user);
 		response.sendRedirect("/pinkish_red/manageMain.jsp");

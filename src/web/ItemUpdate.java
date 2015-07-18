@@ -11,8 +11,12 @@ import javax.servlet.http.HttpSession;
 
 import com.alibaba.fastjson.JSONObject;
 
+import dao.GoodsDao;
 import dao.ItemDao;
+import dao.impl.GoodsDaoImpl;
 import dao.impl.ItemDaoImpl;
+import entity.Cart;
+import entity.Goods;
 import entity.Item;
 import entity.Users;
 
@@ -33,16 +37,30 @@ public class ItemUpdate extends HttpServlet {
 		JSONObject obj = new JSONObject();
 		HttpSession session = request.getSession();
 		Users users = (Users) session.getAttribute("user");
+		String goodsId = request.getParameter("goodsId");
+		int count = Integer.parseInt(request.getParameter("count"));
+		GoodsDao goodsDao = new GoodsDaoImpl();
+		/**
+		 * session购物车操作（未登录用户）
+		 */
 		if (users == null) {
-			obj.put("result", false);
+			Cart cart = (Cart) session.getAttribute("cart");
+			if (cart == null) {
+				cart = new Cart();
+			}
+			Goods goods = goodsDao.findById(Integer.parseInt(goodsId));
+			if (count == 0) {
+				cart.remove(goods);
+			} else {
+				cart.add(goods, count);
+			}
+			obj.put("success", true);
 			out.println(obj);
 			out.flush();
 			out.close();
 			return;
 		}
 
-		String goodsId = request.getParameter("goodsId");
-		int count = Integer.parseInt(request.getParameter("count"));
 		ItemDao itemDao = new ItemDaoImpl();
 		Item item = new Item();
 		item.setGoodsId(Integer.parseInt(goodsId));

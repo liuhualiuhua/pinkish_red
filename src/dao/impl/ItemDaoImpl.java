@@ -8,7 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dao.ItemDao;
+import entity.Cart;
+import entity.Goods;
 import entity.Item;
+import entity.Order;
 
 public class ItemDaoImpl extends BaseDao implements ItemDao {
 	Connection conn = null;
@@ -246,6 +249,46 @@ public class ItemDaoImpl extends BaseDao implements ItemDao {
 		}
 
 		return total;
+	}
+
+	@Override
+	public int addCart(Cart cart, Order order) {
+		int result = 0;
+		List goodsList = cart.getGoods();
+		List itemList = cart.getCount();
+		int length = goodsList.size();
+		String sql = "insert into ITEM values(?,?,?,?)";
+		try {
+			conn = super.getConn();
+			conn.setAutoCommit(false);
+			pstmt = conn.prepareStatement(sql);
+			for (int i = 0; i < length; i++) {
+				pstmt.setInt(1, ((Goods) goodsList.get(i)).getGoodsId());
+				pstmt.setInt(2, (Integer) itemList.get(i));
+				pstmt.setInt(3, order.getUserId());
+				pstmt.setInt(4, order.getOrderId());
+				pstmt.addBatch();	
+			}
+			result=pstmt.executeBatch().length;
+			//pstmt.clearBatch();
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.commit();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally{
+				super.closeAll(conn, pstmt, rs);
+			}
+		}
+
+		return result;
 	}
 
 }

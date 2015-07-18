@@ -145,6 +145,11 @@
     <servlet-name>OrderDetail</servlet-name>
     <servlet-class>web.OrderDetail</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>Login</servlet-name>
+    <servlet-class>web.Login</servlet-class>
+  </servlet>
+
 
 
 
@@ -299,6 +304,10 @@
   <servlet-mapping>
     <servlet-name>OrderDetail</servlet-name>
     <url-pattern>/OrderDetail</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Login</servlet-name>
+    <url-pattern>/Login</url-pattern>
   </servlet-mapping>
 
 

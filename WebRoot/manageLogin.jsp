@@ -91,7 +91,7 @@ A:active {
 		if(check.length!=4){
 			alert("验证码长度错误！");
 			return;
-		}	
+		}
 		document.adminlogin.submit();			
 	}
 	function checkCode(){

@@ -11,8 +11,11 @@ import javax.servlet.http.HttpSession;
 
 import com.alibaba.fastjson.JSONObject;
 
+import dao.GoodsDao;
 import dao.ItemDao;
+import dao.impl.GoodsDaoImpl;
 import dao.impl.ItemDaoImpl;
+import entity.Cart;
 import entity.Goods;
 import entity.Item;
 import entity.Users;
@@ -34,15 +37,26 @@ public class ItemAdd extends HttpServlet {
 		JSONObject obj = new JSONObject();
 		HttpSession session = request.getSession();
 		Users users = (Users) session.getAttribute("user");
+		String goodsId = request.getParameter("goodsId");
+		GoodsDao goodsDao = new GoodsDaoImpl();
+		/**
+		 * session购物车操作（未登录用户）
+		 */
 		if (users == null) {
-			obj.put("result", false);
+			Cart cart = (Cart) session.getAttribute("cart");
+			if (cart == null) {
+				cart = new Cart();
+				session.setAttribute("cart", cart);
+			}
+			Goods goods = goodsDao.findById(Integer.parseInt(goodsId));
+			cart.add(goods);
+			obj.put("success", true);
 			out.println(obj);
 			out.flush();
 			out.close();
 			return;
 		}
 
-		String goodsId = request.getParameter("goodsId");
 		Item item = new Item();
 		item.setGoodsId(Integer.parseInt(goodsId));
 		item.setCount(1);
@@ -57,7 +71,7 @@ public class ItemAdd extends HttpServlet {
 			i.setCount(i.getCount() + 1);
 			result = itemDao.updateItemById(i);
 		}
-		
+
 		if (result > 0) {
 			obj.put("success", true);
 		} else {
