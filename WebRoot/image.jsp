@@ -18,7 +18,7 @@ Color getRandColor(int start,int end,long seed)
 <%
 int width=60;
 int height=20;
-String[] str={"1","a","A","B","c","2","I","8","U","y"};
+String[] str={"1","a","A","B","C","2","I","8","U","y"};
 BufferedImage image=new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
 //这就算是有纸了，需要知道宽度高度
 Graphics g=image.getGraphics();

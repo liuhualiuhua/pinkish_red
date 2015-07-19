@@ -191,7 +191,7 @@ public class OrderDaoImpl extends BaseDao implements OrderDao {
 		JSONArray array = null;
 		try {
 			conn = super.getConn();
-			String sql = "select g.goodsId,g.name,g.brand,g.type,g.price,i.count,i.count*g.price as total from GOODS g,ITEM i,ORDERS o where g.goodsId=i.goodsId and i.status=o.orderId and o.orderId=?";
+			String sql = "select g.goodsId,g.name,g.brand,g.type,g.price,i.count,i.count*g.price as total,g.pic from GOODS g,ITEM i,ORDERS o where g.goodsId=i.goodsId and i.status=o.orderId and o.orderId=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, order.getOrderId());
 			System.out.println(sql);

@@ -259,4 +259,32 @@ public class UsersDaoImpl extends BaseDao implements UsersDao {
 		return u;
 	}
 
+	@Override
+	public List searchUsersByName(String name) {
+		List list = new ArrayList();
+
+		try {
+			conn = super.getConn();
+			String sql = "select userId,name from USERS where name like '%"
+					+ name + "%'";
+			pstmt = conn.prepareStatement(sql);
+			System.out.println(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				Users u = new Users();
+				u.setUserId(rs.getInt(1));
+				u.setName(rs.getString(2));
+
+				list.add(u);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			super.closeAll(conn, pstmt, rs);
+		}
+
+		return list;
+	}
+
 }

@@ -23,4 +23,6 @@ public interface UsersDao {
 	public Users findByName(String name);
 	
 	public int changePass(Users users);
+	
+	public List searchUsersByName(String name);
 }
