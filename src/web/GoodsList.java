@@ -30,8 +30,8 @@ public class GoodsList extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html;charset=utf-8");
+		request.setCharacterEncoding("GBK");
+		response.setContentType("text/html;charset=GBK");
 
 		int page = Integer.parseInt(request.getParameter("page"));
 		int rows = Integer.parseInt(request.getParameter("rows"));

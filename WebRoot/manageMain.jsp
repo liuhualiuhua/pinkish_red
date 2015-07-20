@@ -65,7 +65,7 @@ Users user=(Users)session.getAttribute("user");
 					$.messager.alert("系统提示","用户密码输入错误！");
 					return false;
 				} */
-				if(newPassword!=newPassword2){
+				if(oldPassword!=newPassword2){
 					$.messager.alert("系统提示","确认密码输入错误！");
 					return false;
 				}
@@ -126,20 +126,24 @@ Users user=(Users)session.getAttribute("user");
 			<a href="javascript:openTab('服务归档','customerServiceFile.jsp','icon-fwgd')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-fwgd'" style="width: 150px;">服务归档</a>
 		</div>
 		<% }%>
+		<% if(user.getRole()==2||user.getRole()>=4){%>
 		<div title="客服专区"  data-options="iconCls:'icon-fwgl'" style="padding:10px">
 			<a href="javascript:openTab('前台聊天室','chatroom.jsp','icon-khgcfx')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-khgcfx'" style="width: 150px;">前台聊天室</a>
 			<a href="javascript:openTab('前台聊天信息管理','messageManage.jsp','icon-khgxfx')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-khgxfx'" style="width: 150px;">前台聊天信息管理</a>
 			<a href="javascript:openTab('客服聊天室','serviceChatroom.jsp','icon-khfwfx')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-khfwfx'" style="width: 150px;">客服聊天室</a>
 			<a href="javascript:openTab('客服聊天信息管理','noteManage.jsp','icon-khlsfx')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-khlsfx'" style="width: 150px;">客服聊天信息管理</a>
 		</div>
-		<% if(user.getRole()>=4){%>
+		<% }%>
+		
 		<div title="基础数据管理"  data-options="iconCls:'icon-jcsjgl'" style="padding:10px">
 			<a href="javascript:openTab('404页面','404.jsp','icon-sjzdgl')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-sjzdgl'" style="width: 150px;">404页面</a>
 			<a href="javascript:openTab('500页面','500.jsp','icon-cpxxgl')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-cpxxgl'" style="width: 150px;">500页面</a>
 			<a href="javascript:openTab('网站简介','../about.jsp','icon-fwcj')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-fwcj'" style="width: 150px;">网站简介</a>
+			<% if(user.getRole()>=4){%>
 			<a href="javascript:openTab('用户信息管理','userManage.jsp','icon-user')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-user'" style="width: 150px;">用户信息管理</a>
+			<% }%>
 		</div>
-		 <% }%>
+		 
 		<div title="系统管理"  data-options="iconCls:'icon-item'" style="padding:10px">
 			<a href="javascript:openPasswordModifyDialog()" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-modifyPassword'" style="width: 150px;">修改密码</a>
 			<a href="javascript:logout()" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-exit'" style="width: 150px;">安全退出</a>

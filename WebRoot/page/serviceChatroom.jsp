@@ -279,7 +279,7 @@ $(document).ready(function(){
 				    <table class="table table-bordered table-hover">
 				    	<thead>
 				    		<tr>
-				    		<td rowspan="3" style="text-align:center"><img src="<%=users.getHead() %>" width="150px" height="150px" alt="头像" class="img-rounded"></td>
+				    		<td rowspan="3" style="text-align:center"><img src="../<%=users.getHead() %>" width="150px" height="150px" alt="头像" class="img-rounded"></td>
 				    		<td>用户名</td><td><%=users.getName() %></td>
 				    		</tr>
 				    		<tr>

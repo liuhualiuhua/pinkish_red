@@ -32,7 +32,34 @@ Users user=(Users)session.getAttribute("user");
 	src="${pageContext.request.contextPath}/jquery-easyui-1.3.3/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript">
 var url;
+var decimalReg=/^\d{0,8}\.{0,1}(\d{1,2})?$/;
+var numReg=/^([0-9]*[1-9][0-9]*){1,}$/;
 function searchOrder(){
+	var ids=$("#s_orderId").val();
+	var ids2=$("#s_userId").val();
+	var price1=$("#s_price1").val();
+	var price2=$("#s_price2").val();
+	
+	if(ids!=null&&ids.length>0&&!numReg.test(ids)){
+		$.messager.alert("系统提示","请输入正确的订单ID");
+		return;
+	}
+	if(ids2!=null&&ids2.length>0&&!numReg.test(ids2)){
+		$.messager.alert("系统提示","请输入正确的用户ID");
+		return;
+	}
+	
+	if(price1!=null&&price1.length>0&&!decimalReg.test(price1)){
+		$.messager.alert("系统提示","请输入正确的商品价格");
+		return;
+	}
+	if(price2!=null&&price2.length>0&&!decimalReg.test(price2)){
+		$.messager.alert("系统提示","请输入正确的商品价格");
+		return;
+	}
+	
+	
+
 	$("#dg").datagrid('load', {
 		"orderId" : $("#s_orderId").val(),
 		"userId" : $("#s_userId").val(),

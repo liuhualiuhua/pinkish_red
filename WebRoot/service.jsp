@@ -294,15 +294,32 @@ $(document).ready(function(){
     		</div>
     		<div class="col-sm-3">
     		<br>
+    			<%
+    				List unreadCount=noteDao.unreadCount(users);
+    				
+    			 %>
 				<h3 align="center">未读消息</h3>
     			<table class="table table-hover table-bordered">
 					<thead>
+						
 						<tr>
 							<th>用户名</th>
 							<th>未读消息</th>
 						</tr>
+						
+						
 					</thead>
-					<tbody>	
+					<tbody>
+					<%
+					if(!unreadCount.isEmpty()){ 
+						for(Object obj:unreadCount){
+						Note n=(Note)obj;
+					%>
+						<tr>
+							<th><%=n.getFromName() %></th>
+							<th><button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal"  onclick="startChat('<%=n.getFromId() %>')">聊天<span class='badge'><%=n.getToId() %></span></button></th>
+						</tr>
+					<%}} %>	
 					</tbody>
 				</table>
 				

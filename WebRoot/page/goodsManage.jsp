@@ -257,7 +257,9 @@ function changeVal(stext){
  	<div>
  		<a href="javascript:openGoodsAddDialog()" class="easyui-linkbutton" iconCls="icon-add" plain="true">Ìí¼Ó</a>
  		<a href="javascript:openGoodsModifyDialog()" class="easyui-linkbutton" iconCls="icon-edit" plain="true">ÐÞ¸Ä</a>
+ 		<%if(user.getRole()>=4){ %>
  		<a href="javascript:deleteGoods()" class="easyui-linkbutton" iconCls="icon-remove" plain="true">É¾³ý</a>
+ 		<%} %>
  	</div>
  	<div>
  		

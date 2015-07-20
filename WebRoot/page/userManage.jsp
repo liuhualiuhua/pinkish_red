@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*,dao.*,dao.impl.*,entity.*" contentType="text/html; charset=UTF-8"
+<%@ page language="java" import="java.util.*,dao.*,dao.impl.*,entity.*" contentType="text/html; charset=GBK"
     pageEncoding="UTF-8"%>
  <%
 Users user=(Users)session.getAttribute("user");
@@ -114,6 +114,52 @@ Users user=(Users)session.getAttribute("user");
 			} 
 		 });
 	 }
+	 function openUpLoadDialog(){
+	 	 var selectedRows=$("#dg").datagrid("getSelections");
+		 if(selectedRows.length!=1){
+			 $.messager.alert("系统提示","请选择一条要编辑的数据！");
+			 return;
+		 }
+		 var row=selectedRows[0];
+		 $("#dlg2").dialog("open").dialog("setTitle","上传用户图片");
+		 //$("#fm").form("load",row);
+		 url="${pageContext.request.contextPath}/UsersUpLoad?userId="+row.userId;
+	 
+	 }
+	 
+	 function saveUpload(){
+	 	$("#fm2").form("submit",{
+			url:url,
+			onSubmit:function(){
+				var doc=$("#doc").val();
+				if(doc==null||doc.length==0){
+					$.messager.alert("系统提示","请添加图片！");
+					return false;
+				}
+				return $(this).form("validate");
+			},
+			success:function(result){
+				var result=eval('('+result+')');
+				if(result.success){
+					$.messager.alert("系统提示","保存成功！");
+					$("#doc").val("");
+					$("#preview").css("display","none");
+					$("#dlg2").dialog("close");
+					$("#dg").datagrid("reload");
+				}else{
+					$.messager.alert("系统提示","保存失败！");
+					return;
+				}
+			}
+		 });	
+	 }
+	 
+	 function closeUploadDialog(){
+	 	 $("#dlg2").dialog("close");
+	 	 $("#doc").val("");
+	 	 $("#preview").css("display","none");
+	 }
+	 
 </script>
 <title>学生管理</title>
 </head>
@@ -137,6 +183,7 @@ Users user=(Users)session.getAttribute("user");
  		<a href="javascript:openUserAddDialog()" class="easyui-linkbutton" iconCls="icon-add" plain="true">添加</a>
  		<a href="javascript:openUserModifyDialog()" class="easyui-linkbutton" iconCls="icon-edit" plain="true">修改</a>
  		<a href="javascript:deleteUser()" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>
+ 		<a href="javascript:openUpLoadDialog()" class="easyui-linkbutton" iconCls="icon-jcsjgl" plain="true">上传头像</a>
  	</div>
  	<div>
  		
@@ -186,5 +233,69 @@ Users user=(Users)session.getAttribute("user");
  </div>
  
  
+ <div id="dlg2" class="easyui-dialog" style="width:620px;height:250px;padding: 10px 20px"
+   closed="true" buttons="#dlg-buttons2">
+   <form id="fm2" method="post"  enctype="multipart/form-data">
+   	<table>
+   		<tr>
+	   		<td>
+	   			<input type=file  name="doc" id="doc" onchange="javascript:setImagePreview();"> 
+	   		</td>
+   		</tr>
+   		<tr>
+	   		<td>
+	   			<div id="localImag" style="text-align:center"> 
+					<img id="preview" width=-1 height=-1 style="diplay:none" />
+				</div>
+	   		</td>
+   		</tr>
+   	</table>
+   </form>
+ </div>
+ 
+ <div id="dlg-buttons2">
+ 	<a href="javascript:saveUpload()" class="easyui-linkbutton" iconCls="icon-ok">保存</a>
+ 	<a href="javascript:closeUploadDialog()" class="easyui-linkbutton" iconCls="icon-cancel">关闭</a>
+ </div>
+ 
+ 
+<script> 
+function setImagePreview() { 
+	var docObj=document.getElementById("doc"); 
+	var imgObjPreview=document.getElementById("preview"); 
+	if(docObj.files && docObj.files[0]){ 
+		//火狐下，直接设img属性 
+		imgObjPreview.style.display = 'block'; 
+		imgObjPreview.style.width = '180px'; 
+		imgObjPreview.style.height = '160px'; 
+		//imgObjPreview.src = docObj.files[0].getAsDataURL(); 
+		//火狐7以上版本不能用上面的getAsDataURL()方式获取，需要一下方式 
+		imgObjPreview.src = window.URL.createObjectURL(docObj.files[0]); 
+	}else{ 
+		//IE下，使用滤镜 
+		docObj.select(); 
+		var imgSrc = document.selection.createRange().text; 
+		var localImagId = document.getElementById("localImag"); 
+		//必须设置初始大小 
+		localImagId.style.width = "180px"; 
+		localImagId.style.height = "160px"; 
+		//图片异常的捕捉，防止用户修改后缀来伪造图片 
+		try{ 
+			localImagId.style.filter="progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)"; 
+			localImagId.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc; 
+		}catch(e){ 
+		    alert("您上传的图片格式不正确，请重新选择!"); 
+		    return false; 
+		} 
+		imgObjPreview.style.display = 'none'; 
+		document.selection.empty(); 
+	} 
+	return true; 
+} 
+</script>
+<script type="text/javascript">
+function changeVal(stext){
+	$("#pic").val(stext);
+} 
 </body>
 </html>

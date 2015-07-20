@@ -137,26 +137,31 @@
 		<servlet-name>OrderCommit</servlet-name>
 		<servlet-class>web.OrderCommit</servlet-class>
 	</servlet>
-  <servlet>
-    <servlet-name>OrderReset</servlet-name>
-    <servlet-class>web.OrderReset</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>OrderDetail</servlet-name>
-    <servlet-class>web.OrderDetail</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>Login</servlet-name>
-    <servlet-class>web.Login</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>OrderReceive</servlet-name>
-    <servlet-class>web.OrderReceive</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>UserSearch</servlet-name>
-    <servlet-class>web.UserSearch</servlet-class>
-  </servlet>
+	<servlet>
+		<servlet-name>OrderReset</servlet-name>
+		<servlet-class>web.OrderReset</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>OrderDetail</servlet-name>
+		<servlet-class>web.OrderDetail</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>Login</servlet-name>
+		<servlet-class>web.Login</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>OrderReceive</servlet-name>
+		<servlet-class>web.OrderReceive</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>UserSearch</servlet-name>
+		<servlet-class>web.UserSearch</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>UsersUpLoad</servlet-name>
+		<servlet-class>web.UsersUpLoad</servlet-class>
+	</servlet>
+
 
 
 
@@ -307,26 +312,30 @@
 		<servlet-name>OrderCommit</servlet-name>
 		<url-pattern>/OrderCommit</url-pattern>
 	</servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>OrderReset</servlet-name>
-    <url-pattern>/OrderReset</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>OrderDetail</servlet-name>
-    <url-pattern>/OrderDetail</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>Login</servlet-name>
-    <url-pattern>/Login</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>OrderReceive</servlet-name>
-    <url-pattern>/OrderReceive</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>UserSearch</servlet-name>
-    <url-pattern>/UserSearch</url-pattern>
-  </servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>OrderReset</servlet-name>
+		<url-pattern>/OrderReset</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>OrderDetail</servlet-name>
+		<url-pattern>/OrderDetail</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Login</servlet-name>
+		<url-pattern>/Login</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>OrderReceive</servlet-name>
+		<url-pattern>/OrderReceive</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UserSearch</servlet-name>
+		<url-pattern>/UserSearch</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UsersUpLoad</servlet-name>
+		<url-pattern>/UsersUpLoad</url-pattern>
+	</servlet-mapping>
 
 
 

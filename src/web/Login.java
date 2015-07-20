@@ -92,17 +92,25 @@ public class Login extends HttpServlet {
 			int result = 0;
 			if (orderId > 0) {
 				result = itemDao.addCart(cart, order);
-
 			}
 			if (result > 0) {
 				session.removeAttribute("cart");
+				cart.clear();
 			} else {
 				obj.put("success", false);
 				obj.put("errorMsg", "哦哦，出错了");
 				out.println(obj);
 				out.flush();
 				out.close();
+				return;
 			}
+		}else{
+			obj.put("success", false);
+			obj.put("errorMsg", "哦哦，购物车为空");
+			out.println(obj);
+			out.flush();
+			out.close();
+			return;
 		}
 		obj.put("success", true);
 		out.println(obj);
