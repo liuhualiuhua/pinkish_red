@@ -237,7 +237,7 @@ function loginWithCart(){
 		function(date){
 			date=$.parseJSON(date);
 			if(date.success){
-				location.href="order.jsp";
+				location.href="order2.jsp";
 			}else{
 				alert(date.errorMsg);
 			}
