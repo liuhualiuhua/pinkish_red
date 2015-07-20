@@ -27,7 +27,17 @@
 
 	Users user = usersDao.login(u);
 	
-	
+	Cart cart = (Cart) session.getAttribute("cart");
+	if (user != null && cart != null && cart.calTotal() > 0.0) {
+		ItemDao itemDao = new ItemDaoImpl();
+		Order order = new Order();
+		order.setOrderId(0);
+		order.setUserId(user.getUserId());
+		itemDao.addCart(cart, order);
+		session.removeAttribute("cart");
+		cart.clear();
+	}
+
 	if (user != null && user.getRole() >= 2) {
 		session.setAttribute("user", user);
 		response.sendRedirect("/pinkish_red/manageMain.jsp");

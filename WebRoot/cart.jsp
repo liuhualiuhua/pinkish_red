@@ -200,7 +200,7 @@ function checkOut(){
 				date=$.parseJSON(date);
 				if(date.success){
 					//alert("成功");
-					location.href="order.jsp";
+					location.href="order2.jsp";
 				}else{
 					alert("失败");
 				}

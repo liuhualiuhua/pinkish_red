@@ -172,11 +172,14 @@ $(document).ready(function(){
 	});
 });
 
-
 </script>
   </head>
   <body>
     <div class="container">
+    	<ol class="breadcrumb">
+		  <li><a href="<%=basePath%>">首页</a></li>
+		  <li class="active">客服专区</li>
+		</ol>
     	<div class="row">
     		<div class="col-sm-9">
     		<br>
