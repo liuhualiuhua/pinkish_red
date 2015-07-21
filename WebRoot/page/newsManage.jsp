@@ -159,7 +159,7 @@ function openNewsModifyDialog(){
 			if(r){
 				$.post("${pageContext.request.contextPath}/NewsDelete",{ids:ids},function(date){
 					date=$.parseJSON(date);
-					if(result.success){
+					if(date.success){
 						 $.messager.alert("系统提示","已成功删除<font color=red>"+date.delNums+"</font>条数据!");
 						 $("#dg").datagrid("reload");
 					}else{

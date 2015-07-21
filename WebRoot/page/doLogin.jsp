@@ -13,7 +13,7 @@
 		request.setAttribute("error", "验证码错误");
 		request.setAttribute("name", userName);
 		request.setAttribute("pass", password);
-		request.getRequestDispatcher("/manageLogin.jsp").forward(
+		request.getRequestDispatcher("/").forward(
 		request, response);
 		return;
 	}
@@ -43,7 +43,7 @@
 		response.sendRedirect("/pinkish_red/manageMain.jsp");
 	} else if (user != null && user.getRole() == 1) {
 		session.setAttribute("user", user);
-		response.sendRedirect("/pinkish_red/manageLogin.jsp");
+		response.sendRedirect("/pinkish_red");
 	} else {
 		request.setAttribute("error", "用户名或密码错误");
 		request.getRequestDispatcher("/pinkish_red/manageLogin.jsp")

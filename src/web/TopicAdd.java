@@ -67,7 +67,7 @@ public class TopicAdd extends HttpServlet {
 			topic.setTopicId(Integer.parseInt(topicId));
 			result = topicDao.updateTopic(topic);
 		} else {
-			result = topicDao.addTopic(topic);
+			result = topicDao.addTopics(topic);
 		}
 
 		if (result > 0) {

@@ -118,7 +118,7 @@ public class UsersDaoImpl extends BaseDao implements UsersDao {
 	}
 
 	@Override
-	public int addUsers(Users users) {
+	public int addUser(Users users) {
 		int result = 0;
 		try {
 			conn = super.getConn();
@@ -306,6 +306,108 @@ public class UsersDaoImpl extends BaseDao implements UsersDao {
 		}
 
 		return result;
+	}
+
+	/**
+	 * 整合
+	 */
+	public int findName() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int addUsers(Users users) {
+		int i = 0;
+		try {
+			conn = this.getConn();// 连接数据库
+			String sql = "insert into USERS(name,pass,role,head) values(?,?,?,?)";
+			pstmt = conn.prepareStatement(sql);// 执行sq
+
+			pstmt.setString(1, users.getName());
+			pstmt.setString(2, users.getPass());
+			pstmt.setInt(3, users.getRole());
+			pstmt.setString(4, users.getHead());
+			i = pstmt.executeUpdate();// 返回受影响的行数
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			this.closeAll(conn, pstmt, rs);
+		}
+		return i;
+	}
+
+	@Override
+	public Users dodenglu(String name, String pass) {
+		Users users = new Users();
+		try {
+			conn = this.getConn();
+			String sql = "select * from USERS where name='" + name
+					+ "' and pass='" + pass + "'";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				users.setUserId(rs.getInt("userId"));
+				users.setName(rs.getString("name"));
+				users.setPass(rs.getString("pass"));
+				users.setRole(rs.getInt("role"));
+				users.setHead(rs.getString("head"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return users;
+	}
+
+	@Override
+	public Users findUsers(int userId) {
+		Users users = new Users();
+		try {
+			conn = this.getConn();
+			String sql = "select * from USERS  where userId=" + userId;
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				users.setUserId(rs.getInt("userId"));
+				users.setName(rs.getString("name"));
+				users.setPass(rs.getString("pass"));
+				users.setRole(rs.getInt("role"));
+				users.setHead(rs.getString("head"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return users;
+	}
+
+	@Override
+	public List findList() {
+		List list = new ArrayList();
+		try {
+			conn = this.getConn();
+			String sql = "select * from USERS";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				Users users = new Users();
+				users.setUserId(rs.getInt("userId"));
+				users.setName(rs.getString("name"));
+				users.setPass(rs.getString("pass"));
+				users.setRole(rs.getInt("role"));
+				users.setHead(rs.getString("head"));
+				list.add(users);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return list;
 	}
 
 }

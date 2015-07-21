@@ -54,7 +54,7 @@ public class UserAdd extends HttpServlet {
 		} else {
 			Users users=usersDao.findByName(name);
 			if(users==null){
-				result = usersDao.addUsers(u);
+				result = usersDao.addUser(u);
 			}else{
 				errorMsg="用户名已存在";
 			}

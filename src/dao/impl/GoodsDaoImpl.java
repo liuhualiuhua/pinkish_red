@@ -253,4 +253,185 @@ public class GoodsDaoImpl extends BaseDao implements GoodsDao {
 		return g;
 	}
 
+	/**
+	 * ÕûºÏ
+	 */
+	public List findListGoods(int page) {
+		List list = new ArrayList();
+		int begin = (page - 1) * 14;
+		try {
+			conn = this.getConn();
+			String sql = "select top 14 * from GOODS "
+					+ "where goodsId not in(select top "
+					+ begin
+					+ " goodsId from GOODS order by goodsId desc ) order by goodsId desc";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				Goods goods = new Goods();
+				goods.setGoodsId(rs.getInt("goodsId"));
+				goods.setName(rs.getString("name"));
+				goods.setBrand(rs.getString("brand"));
+				goods.setType(rs.getString("type"));
+				goods.setDescription(rs.getString("description"));
+				goods.setPrice(rs.getDouble("price"));
+				goods.setPic(rs.getString("pic"));
+				list.add(goods);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return list;
+
+	}
+
+	@Override
+	public int findCountGoods(int goodsId) {
+		int i = 0;
+		try {
+			conn = this.getConn();
+			String sql = "select count( * )from GOODS";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				i = rs.getInt(1);
+			}
+			i = i % 10 == 0 ? i / 14 : i / 14 + 1;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return i;
+	}
+
+	@Override
+	public List findGoods(String brand) {
+		List list = new ArrayList();
+		try {
+			conn = super.getConn();
+			String sql = "select * from GOODS  where brand like '%" + brand
+					+ "%'";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				Goods goods = new Goods();
+				goods.setGoodsId(rs.getInt("goodsId"));
+				goods.setName(rs.getString("name"));
+				goods.setBrand(rs.getString("brand"));
+				goods.setType(rs.getString("type"));
+				goods.setDescription(rs.getString("description"));
+				goods.setPrice(rs.getDouble("price"));
+				goods.setPic(rs.getString("pic"));
+				list.add(goods);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	public List findAll(int page, String name, int price, String name1) {
+		List list = new ArrayList();
+		int a[] = { 100, 500 };
+		int begin = 5 * (page - 1);
+		try {
+			conn = this.getConn();
+			String sql = "select * from GOODS where 1=1";
+			if (name != null && !name.equals("")) {
+				sql += "and brand like '%" + name + "%'";
+			}
+			if (name != null && price == 1) {
+				sql += "and brand like '" + name + "' and price<" + a[0] + "";
+			}
+			if (name != null && price == 2) {
+				sql += "and brand like '%" + name + "%' and price>" + a[0]
+						+ " and price<" + a[1] + "";
+			}
+			if (name != null && price == 3) {
+				sql += "and brand like '" + name + "' and price>" + a[1] + "";
+			}
+			if (name1 != null && name.equals("")) {
+				sql += "and brand like '%" + name1 + "%'";
+			}
+
+			pstmt = conn.prepareStatement(sql);
+			System.out.println(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				Goods goods = new Goods();
+				goods.setGoodsId(rs.getInt("goodsId"));
+				goods.setName(rs.getString("name"));
+				goods.setBrand(rs.getString("brand"));
+				goods.setType(rs.getString("type"));
+				goods.setDescription(rs.getString("description"));
+				goods.setPrice(rs.getDouble("price"));
+				goods.setPic(rs.getString("pic"));
+				list.add(goods);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			this.closeAll(conn, pstmt, rs);
+		}
+
+		return list;
+	}
+
+	@Override
+	public List findList() {
+		List list = new ArrayList();
+		try {
+			conn = this.getConn();
+			String sql = "select top 5 * from GOODS "
+					+ "where goodsId not in(select top 0 goodsId from GOODS order by goodsId desc ) order by goodsId desc";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				Goods goods = new Goods();
+				goods.setGoodsId(rs.getInt("goodsId"));
+				goods.setName(rs.getString("name"));
+				goods.setBrand(rs.getString("brand"));
+				goods.setType(rs.getString("type"));
+				goods.setDescription(rs.getString("description"));
+				goods.setPrice(rs.getDouble("price"));
+				goods.setPic(rs.getString("pic"));
+				list.add(goods);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return list;
+	}
+
+	@Override
+	public Goods findGoods(int goodsId) {
+		Goods goods = new Goods();
+		try {
+			conn = super.getConn();
+			String sql = "select * from GOODS where goodsId=" + goodsId;
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				goods.setGoodsId(rs.getInt("goodsId"));
+				goods.setName(rs.getString("name"));
+				goods.setBrand(rs.getString("brand"));
+				goods.setType(rs.getString("type"));
+				goods.setDescription(rs.getString("description"));
+				goods.setPrice(rs.getDouble("price"));
+				goods.setPic(rs.getString("pic"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return goods;
+
+	}
+
 }

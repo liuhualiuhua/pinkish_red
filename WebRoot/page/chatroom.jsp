@@ -3,7 +3,7 @@
 <%
 	Users users = (Users) session.getAttribute("user");
 	if (users == null) {
-		response.sendRedirect("/pinkish_red/index.jsp");
+		response.sendRedirect("/pinkish_red/pinhongdenglu.jsp");
 		return;
 	}
 %>

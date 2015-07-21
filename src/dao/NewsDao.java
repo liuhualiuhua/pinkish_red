@@ -15,7 +15,17 @@ public interface NewsDao {
 	public int addNews(News news);
 
 	public int updateNews(News news);
-	
-	public News get(int newsId,String abc);
+
+
+	/**
+	 * ÕûºÏ
+	 */
+	public List findList();
+
+	public int findCountNews(int newsId);
+
+	public List findListNews(int page);
+
+	public News findNews(int newsId, String adc);
 
 }

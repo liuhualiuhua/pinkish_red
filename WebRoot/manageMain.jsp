@@ -3,7 +3,7 @@
  <%
 Users user=(Users)session.getAttribute("user");
  if(user==null||user.getRole()<2){
- response.sendRedirect("/pinkish_red/index.jsp");
+ response.sendRedirect("/pinkish_red");
  return;
  }
   %>   

@@ -37,11 +37,11 @@ Users user=(Users)session.getAttribute("user");
 <div class="cart">
 	 <div class="container">
 			 <ol class="breadcrumb">
-		  <li><a href="men.html">主页</a></li>
+		  <li><a href="<%=basePath%>">主页</a></li>
 		  <li class="active">购物车</li>
 		 </ol>
 		 <div class="cart-top">
-			<a href="index.html"><< 主页</a>
+			<a href="<%=basePath%>"><< 主页</a>
 		 </div>	
 			
 		 <div class="col-md-9 cart-items">
@@ -190,7 +190,7 @@ function checkOut(){
 				date=$.parseJSON(date);
 				if(date.success){
 					//alert("成功");
-					location.href="order.jsp";
+					location.href="order2.jsp";
 				}else{
 					alert("失败");
 				}

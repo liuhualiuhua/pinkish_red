@@ -177,17 +177,102 @@ public class NewsDaoImpl extends BaseDao implements NewsDao {
 		return result;
 	}
 
-	@Override
-	public News get(int newsId, String abc) {
-		String sql;
+	/**
+	 * ÕûºÏ
+	 */
+	public List findList() {
+		List list = new ArrayList();
+		try {
+			conn = this.getConn();
+			String sql = "select top 3 * from news order by newsId desc";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				News news = new News();
+				news.setNewsId(rs.getInt("newsId"));
+				news.setTitle(rs.getString("Title"));
+				list.add(news);
 
-		if (abc == null || abc.equals("b")) {
-			sql = "select top 1 * from NEWS where newsId>=? ";
-		} else if (abc.equals("a")) {
-			sql = "select top 1 * from NEWS where newsId<=? order by newsId desc";
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
-		return null;
+		return list;
+	}
+
+	@Override
+	public int findCountNews(int newsId) {
+		int i = 0;
+		try {
+			conn = this.getConn();
+			String sql = "select count( * )from news";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				i = rs.getInt(1);
+			}
+			i = i % 10 == 0 ? i / 10 : i / 10 + 1;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return i;
+	}
+
+	public List findListNews(int page) {
+		List list = new ArrayList();
+		int begin = (page - 1) * 10;
+		try {
+			String sql = "select top 10 * from news "
+					+ "where newsId not in(select top "
+					+ begin
+					+ " newsId from news order by newsId desc ) order by newsId desc";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				News news = new News();
+				news.setNewsId(rs.getInt("NewsId"));
+				news.setTitle(rs.getString("Title"));
+				news.setPostTime(rs.getString("postTime"));
+				list.add(news);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return list;
+	}
+
+	@Override
+	public News findNews(int newsId, String adc) {
+		News news = null;
+		String sql;
+		try {
+			conn = this.getConn();
+			if (adc == null || adc.equals("") || adc.equals("b")) {
+				sql = "select top 1 * from news where newsId>=" + newsId;
+			} else {
+				sql = "select top 1 * from news where newsId<=" + newsId
+						+ " order by newsId desc";
+			}
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				news = new News();
+				news.setNewsId(rs.getInt("newsId"));
+				news.setTitle(rs.getString("Title"));
+				news.setPostTime(rs.getString("PostTime"));
+				news.setContent(rs.getString("Content"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return news;
 	}
 
 }

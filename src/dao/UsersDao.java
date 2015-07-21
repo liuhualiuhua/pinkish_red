@@ -12,19 +12,33 @@ public interface UsersDao {
 
 	public int deleteUsersByIds(String delIds);
 
-	public int addUsers(Users users);
+	public int addUser(Users users);
 
 	public int updateUsers(Users users);
-	
+
 	public Users login(Users users);
-	
+
 	public Users findById(int userId);
-	
+
 	public Users findByName(String name);
-	
+
 	public int changePass(Users users);
-	
+
 	public List searchUsersByName(String name);
-	
+
 	public int updateHead(Users users);
+
+	/**
+	 * ÕûºÏ
+	 */
+	public int findName();
+
+	public int addUsers(Users users);
+
+	public Users dodenglu(String name, String pass);
+
+	public Users findUsers(int userId);
+
+	public List findList();
+
 }

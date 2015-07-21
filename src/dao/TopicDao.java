@@ -12,8 +12,27 @@ public interface TopicDao {
 
 	public int deleteTopic(String delIds);
 
-	public int addTopic(Topic topic);
+	public int addTopics(Topic topic);
 
 	public int updateTopic(Topic topic);
+
+	/**
+	 * ÕûºÏ
+	 */
+	public List findList(int page);
+
+	public int findCountTopic(int TopicId);
+
+	public Topic findTopic(int topicId);
+
+	public Topic findTopics(int replyId);
+
+	public Topic finduserId(int UsersId);
+
+	public List findListTop(int page, int topicId);
+
+	public int addTopic(Topic topic);
+
+	public List findListhui(int page);
 
 }

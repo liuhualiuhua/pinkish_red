@@ -136,7 +136,7 @@ public class TopicDaoImpl extends BaseDao implements TopicDao {
 	}
 
 	@Override
-	public int addTopic(Topic topic) {
+	public int addTopics(Topic topic) {
 		int result = 0;
 		try {
 			conn = super.getConn();
@@ -176,6 +176,222 @@ public class TopicDaoImpl extends BaseDao implements TopicDao {
 			super.closeAll(conn, pstmt, rs);
 		}
 		return result;
+	}
+
+	/**
+	 * 整合
+	 */
+	public List findList(int page) {
+		List list = new ArrayList();
+		int begin = (page - 1) * 5;
+		try {
+			conn = this.getConn();
+			String sql = "select top 5 * from TOPIC "
+					+ "where replyId=0 and topicId not in(select top "
+					+ begin
+					+ " "
+					+ "topicId from TOPIC where replyId=0 order by topicId desc ) order by topicId desc";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				Topic topic = new Topic();
+				topic.setTopicId(rs.getInt("topicId"));
+				topic.setContent(rs.getString("content"));
+				topic.setTitle(rs.getString("title"));
+				topic.setUserId(rs.getInt("userId"));
+				topic.setReplyId(rs.getInt("replyId"));
+				topic.setPostTime(rs.getString("PostTime"));
+				topic.setUserName(rs.getString("userName"));
+				list.add(topic);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return list;
+
+	}
+
+	public int findCountTopic(int TopicId) {
+		int i = 0;
+		try {
+			conn = this.getConn();
+			String sql = "select count( * )from TOPIC where topicId=" + TopicId;
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				i = rs.getInt(1);
+			}
+			i = i % 5 == 0 ? i / 5 : i / 5 + 1;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return i;
+	}
+
+	@Override
+	public Topic findTopic(int topicId) {
+		Topic topic = new Topic();
+		try {
+			conn = super.getConn();
+			String sql = "select * from TOPIC where topicId=" + topicId;
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				topic.setTopicId(rs.getInt("topicId"));
+				topic.setContent(rs.getString("content"));
+				topic.setTitle(rs.getString("title"));
+				topic.setUserId(rs.getInt("userId"));
+				topic.setReplyId(rs.getInt("replyId"));
+				topic.setPostTime(rs.getString("PostTime"));
+				topic.setUserName(rs.getString("userName"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return topic;
+	}
+
+	@Override
+	public Topic findTopics(int replyId) {
+		Topic topic = new Topic();
+		try {
+			conn = super.getConn();
+			String sql = "select * from TOPIC where replyId=" + replyId;
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				topic.setTopicId(rs.getInt("topicId"));
+				topic.setContent(rs.getString("content"));
+				topic.setTitle(rs.getString("title"));
+				topic.setUserId(rs.getInt("userId"));
+				topic.setReplyId(rs.getInt("replyId"));
+				topic.setPostTime(rs.getString("PostTime"));
+				topic.setUserName(rs.getString("userName"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return topic;
+	}
+
+	@Override
+	public List findListTop(int page, int topicId) {
+		List list = new ArrayList();
+		int begin = (page - 1) * 3;
+		System.out.println(begin);
+		try {
+			conn = this.getConn();
+			String sql = "select top 3 * from TOPIC where replyId  in("
+					+ "select top " + begin
+					+ " replyId from TOPIC where replyId=" + topicId
+					+ " order by replyId)and replyId=" + topicId
+					+ " order by replyId";
+			System.out.println(sql);
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				Topic topic = new Topic();
+				topic.setTopicId(rs.getInt("topicId"));
+				topic.setContent(rs.getString("content"));
+				topic.setTitle(rs.getString("title"));
+				topic.setUserId(rs.getInt("userId"));
+				topic.setReplyId(rs.getInt("replyId"));
+				topic.setPostTime(rs.getString("PostTime"));
+				topic.setUserName(rs.getString("userName"));
+				list.add(topic);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return list;
+
+	}
+
+	public int addTopic(Topic topic) {
+		int i = 0;
+		try {
+			conn = super.getConn();// 连接数据库
+			String sql = "insert into TOPIC values(?,?,?,?,?,?)";
+			pstmt = conn.prepareStatement(sql);// 执行sql
+
+			pstmt.setString(1, topic.getTitle());
+			pstmt.setString(2, topic.getContent());
+			pstmt.setInt(3, topic.getUserId());
+			pstmt.setInt(4, topic.getReplyId());
+			pstmt.setString(5, topic.getPostTime());
+			pstmt.setString(6, topic.getUserName());
+
+			i = pstmt.executeUpdate();// 返回受影响的行数
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			this.closeAll(conn, pstmt, rs);
+		}
+		return i;
+	}
+
+	public List findListhui(int page) {
+		List list = new ArrayList();
+		int begin = (page - 1) * 5;
+		try {
+			conn = this.getConn();
+			String sql = "select top 5 * from TOPIC "
+					+ "where replyId>0 and topicId not in(select top "
+					+ begin
+					+ " "
+					+ "topicId from TOPIC where replyId=0 order by topicId desc ) order by topicId desc";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				Topic topic = new Topic();
+				topic.setTopicId(rs.getInt("topicId"));
+				topic.setContent(rs.getString("content"));
+				topic.setTitle(rs.getString("title"));
+				topic.setUserId(rs.getInt("userId"));
+				topic.setReplyId(rs.getInt("replyId"));
+				topic.setPostTime(rs.getString("PostTime"));
+				topic.setUserName(rs.getString("userName"));
+				list.add(topic);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return list;
+
+	}
+
+	@Override
+	public Topic finduserId(int UsersId) {
+		Topic topic = new Topic();
+		try {
+			conn = super.getConn();
+			String sql = "select * from TOPIC where usersId=" + UsersId;
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				topic.setTopicId(rs.getInt("topicId"));
+				topic.setContent(rs.getString("content"));
+				topic.setTitle(rs.getString("title"));
+				topic.setUserId(rs.getInt("userId"));
+				topic.setReplyId(rs.getInt("replyId"));
+				topic.setPostTime(rs.getString("PostTime"));
+				topic.setUserName(rs.getString("userName"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return topic;
 	}
 
 }
