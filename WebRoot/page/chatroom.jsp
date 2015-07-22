@@ -92,6 +92,7 @@ function getUnReadMsg(){
 		function(date){
 			var date=$.parseJSON(date);
 			if(date){
+				$("#list-group").empty();
 				$.each(date.users,function(i,n){
 					if($("#"+i+"").length<=0){
 						var str="<li id='"+i+"' class='list-group-item'>"+n+"</li>";
@@ -220,6 +221,13 @@ function logoutLogout(){
 	{"remove":$("#idToBe").val()}
 	);
 }
+function cleanServer(){
+	$.get(
+		"/pinkish_red/MessageUnReadList",
+		{"remove":"abc"}
+		);
+}
+
 $(document).ready(function(){
 	getMessage();
 	//sleep(1000);
@@ -254,6 +262,9 @@ window.onbeforeunload = function() {
 					  <ul class="pager">
 					    <li class="previous" id="sendButton"><a href="javascript:change()">发送</a></li>
 					    <li class="previous" id="cleanButton"><a href="javascript:cleanButton()">清空</a></li>
+					    <%if(users.getRole()>=2){ %>
+					    <li class="button" id="cleanServer"><a href="javascript:cleanServer()">刷新用户列表</a></li>
+					    <%} %>
 					    <li class="next" onclick="getOld()"><a href="javascritp:getOld()" data-toggle="modal" data-target="#myModal">查看聊天记录 </a></li>
 					  </ul>
 					</nav>
@@ -262,8 +273,9 @@ window.onbeforeunload = function() {
 			</div>
 			<div class="col-sm-3">
 				<br><b></b><br>
+				在线人员：
 				<ul class="list-group" id="list-group">
-					<li class="list-group-item">在线人员：</li>
+					<li class="list-group-item">  &nbsp;</li>
 				</ul>
 
 			</div>

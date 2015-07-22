@@ -210,7 +210,6 @@ int goodsId=Integer.parseInt(request.getParameter("goodsId"));
   <tr>
     <td align="center">
     <h3>
-    <a href="#" class="STYLE12"><br>加入购物车</a>
     <input type="button" onclick="addItem(<%=goods.getGoodsId() %>)" value="加入购物车">
     </h3>
     </td>

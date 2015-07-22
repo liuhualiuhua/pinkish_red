@@ -161,7 +161,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </tr>
   
   <tr>
-    <td height="20"><span class="STYLE18"><br><br><br><br>[<%=topic.getPostTime() %>]</span></td>
+    <td height="20"><span class="STYLE18"><br><br><br><br>[<%=topic.getPostTime()%>]</span></td>
   </tr>
  
   
@@ -176,7 +176,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    
   <tr>
     <td height="20" align="center" valign="middle"><span class="STYLE18"><%=topics.getUserName()%></span></td>
-    <td width="71%" align="left"><span class="STYLE18"><%=topics.getTitle() %></span></td>
+    <td width="71%" align="left"><span class="STYLE18"><br><%=topics.getTitle() %></span></td>
   </tr>
   <tr>
     <td rowspan="2" align="center"><img src="<%=users.getHead()%>" width="100" height="80"></img></td>
@@ -188,8 +188,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <%} %>
   <tr>
    <td height="20" align="right"><span class="STYLE18">
-<a href="luentanfabiao.jsp?page=<%=pages==1?1:pages-1 %>&topicId=<%=topic.getTopicId()%>&userId=<%=users.getUserId() %>" class="STYLE8">上一页</a>|
-<a href="luentanfabiao.jsp?page=<%=pages==count1?count1:pages+1%>&topicId=<%=topic.getTopicId()%>&userId=<%=users.getUserId() %>" class="STYLE8">下一页</a>   </td>
+<a href="luentanfabiao.jsp?page=<%=pages==1?1:pages-1%>&topicId=<%=topic.getTopicId()%>&userId=<%=users.getUserId() %>" class="STYLE8">上一页</a>|
+<a href="luentanfabiao.jsp?page=<%=pages==count1?count1:pages+1%>&topicId=<%=topic.getTopicId()%>&userId=<%=users.getUserId() %>" class="STYLE8">下一页</a></td>
   </tr>
 </table>
 

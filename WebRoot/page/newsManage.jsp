@@ -207,7 +207,6 @@ function openNewsModifyDialog(){
  
  <div id="dlg" class="easyui-dialog" style="width:650px;height:380px;padding: 10px 20px"
    closed="true" buttons="#dlg-buttons">
-   
    <form id="fm" method="post">
    	<table cellspacing="8px">
    		<tr>

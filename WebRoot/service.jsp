@@ -72,7 +72,11 @@ function getOldNotesList(){
 }
 function startChat(userId){
 	clearInterval(timers);
+	if(idToBe!=userId){
+		$("#content").empty();
+	}
 	idToBe=userId;
+	
 	getNotes();
 	timers=setInterval(getNotes,3000);
 }

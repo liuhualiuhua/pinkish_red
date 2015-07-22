@@ -187,7 +187,7 @@ return false;
   </tr>
   <tr>
     <td height="60" align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户密码：
-      <input type="text" id="abbs" onmouseover="this.className='name'" name="pass" onmouseout="this.className='names'" /><a href="#"  onMouseOver="this.style.fontSize='15px'" onMouseOut="this.style.fontSize='14px'">&nbsp;忘记密码>>&nbsp;&nbsp;</a></td>
+      <input type="password" id="abbs" onmouseover="this.className='name'" name="pass" onmouseout="this.className='names'" /><a href="#"  onMouseOver="this.style.fontSize='15px'" onMouseOut="this.style.fontSize='14px'">&nbsp;忘记密码>>&nbsp;&nbsp;</a></td>
   </tr>
   <tr>
   <td height="60" align="center" class="id">&nbsp;验证码：

@@ -196,7 +196,7 @@ function openDetail(orderId){
 		date=$.parseJSON(date);
 		$("#goodsDetail").empty();
 		date.rows.forEach(function(item){
-			var str="<tr><td><img src='"+item.pic+"' width='40' height='40'></td><td>"+item.name+"</td><td>"+item.type+"</td><td>"+item.price+"</td><td>"+item.count+"</td><td>"+item.total+"</td></tr>";
+			var str="<tr><td><img src='"+item.pic+"' width='100px' ></td><td>"+item.name+"</td><td>"+item.type+"</td><td>"+item.price+"</td><td>"+item.count+"</td><td>"+item.total+"</td></tr>";
 			$("#goodsDetail").append(str);
 		});
 	});

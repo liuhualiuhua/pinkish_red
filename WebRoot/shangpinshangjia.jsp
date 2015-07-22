@@ -222,7 +222,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
            </div>
         </div>
          <%  
-      
          GoodsDao goodsDaos=new GoodsDaoImpl();
        
           int count1=goodsDaos.findCountGoods(goodsId);

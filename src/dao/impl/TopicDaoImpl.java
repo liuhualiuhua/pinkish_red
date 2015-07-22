@@ -286,8 +286,8 @@ public class TopicDaoImpl extends BaseDao implements TopicDao {
 		int begin = (page - 1) * 2;
 		try {
 			conn = this.getConn();
-			String sql = "select top 2 * from TOPIC where replyId not in("
-					+ "select top "+begin+" replyId from TOPIC where replyId=" +topicId+" order by replyId)and replyId=" + topicId+ " order by replyId";
+			String sql = "select top 2 * from TOPIC where topicId not in("
+					+ "select top "+begin+" topicId from TOPIC where replyId=" +topicId+" order by replyId)and replyId=" + topicId+ " order by replyId";
 			
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -402,7 +402,11 @@ public class TopicDaoImpl extends BaseDao implements TopicDao {
 			while (rs.next()) {
 				i = rs.getInt(1);
 			}
-			i=i%2==0?i/2:i/2+2;
+			i=i%2==0?i/2:i/2+1;
+			if(i==0){
+				i=1;
+			}
+			//System.out.println(i);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

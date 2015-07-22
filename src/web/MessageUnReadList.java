@@ -43,8 +43,8 @@ public class MessageUnReadList extends HttpServlet {
 		 */
 		String remove = request.getParameter("remove");
 		if (StringUtil.isNotEmpty(remove)) {
-			map.remove(remove);
-			System.out.println("移除了"+remove);
+			map.clear();
+			System.out.println("刷新了用户列表");
 			return;
 		}
 
