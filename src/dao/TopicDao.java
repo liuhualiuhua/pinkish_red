@@ -22,7 +22,7 @@ public interface TopicDao {
 	public List findList(int page);
 
 	public int findCountTopic(int TopicId);
-
+	public int findtopic(int TopicId);
 	public Topic findTopic(int topicId);
 
 	public Topic findTopics(int replyId);

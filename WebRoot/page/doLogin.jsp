@@ -13,7 +13,7 @@
 		request.setAttribute("error", "验证码错误");
 		request.setAttribute("name", userName);
 		request.setAttribute("pass", password);
-		request.getRequestDispatcher("/").forward(
+		request.getRequestDispatcher("../manageLogin.jsp").forward(
 		request, response);
 		return;
 	}
@@ -43,10 +43,12 @@
 		response.sendRedirect("/pinkish_red/manageMain.jsp");
 	} else if (user != null && user.getRole() == 1) {
 		session.setAttribute("user", user);
-		response.sendRedirect("/pinkish_red");
+		request.setAttribute("error", "权限不足，不能进入后台管理");
+		request.getRequestDispatcher("../manageLogin.jsp")
+				.forward(request, response);
 	} else {
 		request.setAttribute("error", "用户名或密码错误");
-		request.getRequestDispatcher("/pinkish_red/manageLogin.jsp")
+		request.getRequestDispatcher("../manageLogin.jsp")
 				.forward(request, response);
 	}
 %>

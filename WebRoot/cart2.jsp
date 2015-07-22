@@ -192,7 +192,7 @@ function checkOut(){
 					//alert("成功");
 					location.href="order2.jsp";
 				}else{
-					alert("失败");
+					alert("订单为空，结算失败");
 				}
 			}
 		);

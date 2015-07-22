@@ -9,14 +9,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'luentan.jsp' starting page</title>
+    <title>逛逛论坛</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-    <title>taobao jquery js lephy</title>
     <link rel="stylesheet" href="css/reset.css"/>
     <link rel="stylesheet" href="css/font-awesome.min.css"/>
     <link rel="stylesheet" href="css/style.css"/>
@@ -110,12 +109,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <!--top-right-->
             <div class="top-right">
                 <div data-toggle="arrowdown" id="arrow3" class="user-name">
-                    <a href="#">我的品红</a>
+                    <a href="order2.jsp">我的订单</a>
                     <span class="down-icon"></span>
                 </div>
                 <div data-toggle="arrowdown" id="arrow4" class="user-name">
                     <i class="fa fa-shopping-cart fa-orange"></i>
-                    <a href="#">购物车</a>
+                    <a href="cart.jsp">购物车</a>
                     <span class="down-icon"></span>
                 </div>
                 <div data-toggle="arrowdown" id="arrow5" class="user-name">
@@ -136,11 +135,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <span class="down-icon"></span>
                 </div>
 				
-</div>
-				
-				
-				
-				
+</div>		
 			<div class="top-main">
         <div class="search-wrapper">
           <div class="search-box">
@@ -157,8 +152,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <a id="spe-a2" href="#">最新上架</a>
 		   <a id="spe-a2" href="#">最新公告</a>
           <a id="spe-a3" href="#">逛逛论坛</a>
-           <a id="spe-a3" href="#">后台管理</a>
-           <a id="spe-a3" href="#">在线服务</a>
+           <a id="spe-a3" href="manageLogin.jsp">后台管理</a>
+           <a id="spe-a3" href="service.jsp">在线服务</a>
                 <img style="cursor: pointer" src="img/ad.gif" />
                 <span class="keep-a"><a href="#">消费者保障</a></span>
             </div></td>
@@ -175,6 +170,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <%
  int topicId=Integer.parseInt(request.getParameter("topicId"));
        TopicDao topicDao=new TopicDaoImpl(); 
+         Topic topics=topicDao.findTopic(topicId);
           int count1=topicDao.findCountTopic(topicId);
          String page1=request.getParameter("page");
          if(page1==null){
@@ -183,12 +179,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           int pages=Integer.parseInt(page1);
          %>
        
-    <%
-      
+    <% 
       List list=topicDao.findList(pages);
       for(int i=0;i<list.size();i++){
-         Topic topic=(Topic)list.get(i);
-         
+        Topic topic=(Topic)list.get(i);    
  %>
  
   <tr>
@@ -197,15 +191,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <td align="center"><span class="STYLE9"><%=topic.getPostTime() %></span></td>
   </tr>
      <%} %>
-     <%
-     Topic topic=new Topic();
-     System.out.println(count1);
-      %>
       <br><br>
     <tr >
     <td height="20" align="center">
-     <a href="luentan.jsp?page=<%=pages==1?1:pages-1%>&topicId=<%=topic.getTopicId()%>"">上一页</a>|
-     <a href="luentan.jsp?page=<%=pages==count1?count1:pages+1%>&topicId=<%=topic.getTopicId()%>"">下一页</a></td>
+     <a href="luentan.jsp?page=<%=pages==1?1:pages-1%>&topicId=<%=topics.getTopicId()%>"">上一页</a>|
+     <a href="luentan.jsp?page=<%=pages==count1?count1:pages+1%>&topicId=<%=topics.getTopicId()%>"">下一页</a></td>
   </tr>
 </table>
 
@@ -259,7 +249,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <a href="#">来往</a>
             </div>
             <div class="about-tao">
-                <a href="#">关于品红</a>
+                <a href="about.jsp">关于品红</a>
                 <a href="#">合作伙伴</a>
                 <a href="#">营销中心</a>
                 <a href="#">廉正举报</a>

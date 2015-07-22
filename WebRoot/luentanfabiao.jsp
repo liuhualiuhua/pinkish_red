@@ -48,8 +48,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <a href="#">消息</a>
                     <span class="down-icon"></span>
                 </div>
-                <a class="a-float-left" href="#">手机品红</a>
-                
+       <a class="a-float-left" href="#">手机品红</a>&nbsp;&nbsp; <a href="pinhongshouye.jsp">返回首页</a>
                 <!--hidden-box-->
                 <div data-toggle="hidden-box" id="nav-box1" class="user-box">
                     <img class="my-head" src="img/user-head.jpg" />
@@ -136,33 +135,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   int topicId=Integer.parseInt(request.getParameter("topicId"));
        TopicDao topicDao=new TopicDaoImpl(); 
          Topic topic=topicDao.findTopic(topicId);
-         int count1=topicDao.findCountTopic(topicId);
+         
+         int count1=topicDao.findtopic(topicId);
          String page1=request.getParameter("page");
            if(page1==null){
-             page1="2";
+             page1="1";
           }
-            int pages=Integer.parseInt(page1);
-                 
+            int pages=Integer.parseInt(page1); 
   %>
  <%
    int userId=Integer.parseInt(request.getParameter("userId"));
      UsersDao usersDao=new UsersDaoImpl(); 
     Users users=usersDao.findUsers(userId);
-    System.out.println(users.getHead());
   %>
   <tr>
     <td width="29%" height="24" align="center"><span class="STYLE18"><a href="fatie.jsp" class="STYLE19">发表帖子</a></td>
   </tr>
   <tr>
-    <td height="46" align="center" valign="middle"><span class="STYLE18"><%=topic.getUserName() %></span></td>
+    <td height="20" align="center" valign="middle"><span class="STYLE18"><%=topic.getUserName() %></span></td>
     <td width="71%" align="left"><span class="STYLE18"><br><br><%=topic.getTitle() %></span></td>
   </tr>
   <tr>
     <td rowspan="2" align="center"><img src="<%=users.getHead()%>" width="100" height="80"></img></td>
-    <td height="29" align="left" valign="top"><span class="STYLE18"><%=topic.getContent() %></span></td>
+    <td height="20" align="left" valign="top"><span class="STYLE18"><%=topic.getContent() %></span></td>
   </tr>
+  
   <tr>
-    <td height="34"><span class="STYLE18">[<%=topic.getPostTime() %>]</span></td>
+    <td height="20"><span class="STYLE18"><br><br><br><br>[<%=topic.getPostTime() %>]</span></td>
   </tr>
  
   
@@ -176,24 +175,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    %>
    
   <tr>
-    <td height="35" align="center" valign="middle"><span class="STYLE18"><%=topics.getUserName()%></span></td>
+    <td height="20" align="center" valign="middle"><span class="STYLE18"><%=topics.getUserName()%></span></td>
     <td width="71%" align="left"><span class="STYLE18"><%=topics.getTitle() %></span></td>
   </tr>
   <tr>
     <td rowspan="2" align="center"><img src="<%=users.getHead()%>" width="100" height="80"></img></td>
-    <td height="34" align="left" valign="top"><span class="STYLE18"><%=topics.getContent() %></span></td>
+    <td height="20" align="left" valign="top"><span class="STYLE18"><%=topics.getContent() %></span></td>
   </tr>
   <tr>
-    <td height="26"><span class="STYLE18">[<%=topics.getPostTime()%>]</span></td>
+    <td height="20"><span class="STYLE18"><br><br>[<%=topics.getPostTime()%>]</span></td>
   </tr>
     <%} %>
-<%
-Topic  topicq=new Topic();
- %>
   <tr>
-   <td height="24" align="right"><span class="STYLE18">
-   <a href="luentanfabiao.jsp?page=<%=pages==1?1:pages-1 %>&topicId=<%=topicq.getTopicId()%>" class="STYLE8">上一页</a>|
-   <a href="luentanfabiao.jsp?page=<%=pages==count1?count1:pages+1%>&topicId=<%=topic.getTopicId()%>" class="STYLE8">下一页</a>   </td>
+   <td height="20" align="right"><span class="STYLE18">
+<a href="luentanfabiao.jsp?page=<%=pages==1?1:pages-1 %>&topicId=<%=topic.getTopicId()%>&userId=<%=users.getUserId() %>" class="STYLE8">上一页</a>|
+<a href="luentanfabiao.jsp?page=<%=pages==count1?count1:pages+1%>&topicId=<%=topic.getTopicId()%>&userId=<%=users.getUserId() %>" class="STYLE8">下一页</a>   </td>
   </tr>
 </table>
 

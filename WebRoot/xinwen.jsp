@@ -17,7 +17,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
     <meta charset="UTF-8">
-    <title>taobao jquery js lephy</title>
+    <title>最新快报</title>
     <link rel="stylesheet" href="css/reset.css"/>
     <link rel="stylesheet" href="css/font-awesome.min.css"/>
     <link rel="stylesheet" href="css/style.css"/>
@@ -119,12 +119,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <!--top-right-->
             <div class="top-right">
                 <div data-toggle="arrowdown" id="arrow3" class="user-name">
-                    <a href="#">我的品红</a>
+                    <a href="order2.jsp">我的订单</a>
                     <span class="down-icon"></span>
                 </div>
                 <div data-toggle="arrowdown" id="arrow4" class="user-name">
                     <i class="fa fa-shopping-cart fa-orange"></i>
-                    <a href="#">购物车</a>
+                    <a href="cart.jsp">购物车</a>
                     <span class="down-icon"></span>
                 </div>
                 <div data-toggle="arrowdown" id="arrow5" class="user-name">
@@ -166,8 +166,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <a id="spe-a2" href="#">最新上架</a>
 		   <a id="spe-a2" href="#">最新快报</a>
           <a id="spe-a3" href="#">逛逛论坛</a>
-           <a id="spe-a3" href="#">后台管理</a>
-           <a id="spe-a3" href="#">在线服务</a>
+           <a id="spe-a3" href="manageLogin.jsp">后台管理</a>
+           <a id="spe-a3" href="service.jsp">在线服务</a>
                 <img style="cursor: pointer" src="img/ad.gif" />
                 <span class="keep-a"><a href="#">消费者保障</a></span>
             </div></td>
@@ -202,12 +202,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </tr>
   <%} %>
      <%
-     News news=new News();
-      System.out.println(count1);
+      News news=new News();
       %>
     <tr >
     <td height="20" align="center">
-     <a href="xinwen.jsp?page=<%=pages==1?1:pages-1 %>&newsId=<%=news.getNewsId()%>" class="STYLE8">上一页</a>|
+     <a href="xinwen.jsp?page=<%=pages==1?1:pages-1%>&newsId=<%=news.getNewsId()%>" class="STYLE8">上一页</a>|
     <a href="xinwen.jsp?page=<%=pages==count1?count1:pages+1%>&newsId=<%=news.getNewsId()%>" class="STYLE8">下一页</a></td>
   </tr>
   
@@ -262,7 +261,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <a href="#">来往</a>
             </div>
             <div class="about-tao">
-                <a href="#">关于品红</a>
+                <a href="about.jsp">关于品红</a>
                 <a href="#">合作伙伴</a>
                 <a href="#">营销中心</a>
                 <a href="#">廉正举报</a>

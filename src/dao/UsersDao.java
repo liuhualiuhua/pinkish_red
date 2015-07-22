@@ -28,6 +28,7 @@ public interface UsersDao {
 
 	public int updateHead(Users users);
 
+
 	/**
 	 * ÕûºÏ
 	 */
@@ -40,5 +41,6 @@ public interface UsersDao {
 	public Users findUsers(int userId);
 
 	public List findList();
+	public Users findUsers(String name);
 
 }

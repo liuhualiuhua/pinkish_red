@@ -192,6 +192,7 @@ public class TopicDaoImpl extends BaseDao implements TopicDao {
 					+ " "
 					+ "topicId from TOPIC where replyId=0 order by topicId desc ) order by topicId desc";
 			pstmt = conn.prepareStatement(sql);
+			System.out.println(sql);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				Topic topic = new Topic();
@@ -217,10 +218,10 @@ public class TopicDaoImpl extends BaseDao implements TopicDao {
 		int i = 0;
 		try {
 			conn = this.getConn();
-			String sql = "select count( * )from TOPIC where topicId=" + TopicId;
+			String sql = "select count(*) from TOPIC where replyId="+0;
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-			while (rs.next()) {
+			while (rs.next()){
 				i = rs.getInt(1);
 			}
 			i = i % 5 == 0 ? i / 5 : i / 5 + 1;
@@ -282,16 +283,12 @@ public class TopicDaoImpl extends BaseDao implements TopicDao {
 	@Override
 	public List findListTop(int page, int topicId) {
 		List list = new ArrayList();
-		int begin = (page - 1) * 3;
-		System.out.println(begin);
+		int begin = (page - 1) * 2;
 		try {
 			conn = this.getConn();
-			String sql = "select top 3 * from TOPIC where replyId  in("
-					+ "select top " + begin
-					+ " replyId from TOPIC where replyId=" + topicId
-					+ " order by replyId)and replyId=" + topicId
-					+ " order by replyId";
-			System.out.println(sql);
+			String sql = "select top 2 * from TOPIC where replyId not in("
+					+ "select top "+begin+" replyId from TOPIC where replyId=" +topicId+" order by replyId)and replyId=" + topicId+ " order by replyId";
+			
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
@@ -392,6 +389,25 @@ public class TopicDaoImpl extends BaseDao implements TopicDao {
 			e.printStackTrace();
 		}
 		return topic;
+	}
+
+	@Override
+	public int findtopic(int TopicId) {
+		int i =0;
+		try {
+			conn = this.getConn();
+			String sql = "select count(*) from TOPIC where replyId="+TopicId;
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				i = rs.getInt(1);
+			}
+			i=i%2==0?i/2:i/2+2;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return i;
 	}
 
 }

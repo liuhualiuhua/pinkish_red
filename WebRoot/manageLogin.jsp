@@ -4,11 +4,11 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <%
-	Users users=(Users)session.getAttribute("users");
+	/* Users users=(Users)session.getAttribute("user");
 	if(users!=null){
-		response.sendRedirect("manageIndex.jsp");
+		response.sendRedirect("manageMain.jsp");
 		return;
-	}
+	} */
  %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>

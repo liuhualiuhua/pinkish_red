@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 
 <base href="<%=basePath%>">
-    <title>My JSP 'xinwen.jsp' starting page</title>
+    <title>品红商城</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -104,7 +104,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </div>
                 <div id="arrow4" class="user-name">
                     <i class="fa fa-shopping-cart fa-orange"></i>
-                    <a href="gouwuche.html">购物车</a>
+                    <a href="cart.jsp">购物车</a>
                 
                 </div>
                 <div data-toggle="arrowdown" id="arrow5" class="user-name">
@@ -127,7 +127,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <!--hidden-box-->
                 <div data-toggle="hidden-box" id="nav-box3" class="my-taobao-box">
                     <ul>
-                        <li>已买到的宝贝</li>
+                        <li><a href="order2.jsp">我的订单</a></li>
                         <li>新欢</li>
                         <li>我的足迹</li>
                         <li>我的上新</li>
@@ -135,7 +135,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     </ul>
                 </div>
                 <div  id="nav-box4" class="shopping-box">
-                    <span>您购物车里还没有任何宝贝。</span><a class="check-shopp" href="#">查看我的购物车</a>
+                    <span>您购物车里还没有任何宝贝。</span><a class="check-shopp" href="cart.jsp">查看我的购物车</a>
                 </div>
                 <div  id="nav-box5" class="get-box">
                     <ul>
@@ -708,7 +708,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <a href="#">来往</a>
             </div>
             <div class="about-tao">
-                <a href="#">关于品红</a>
+                <a href="about.jsp">关于品红</a>
                 <a href="#">合作伙伴</a>
                 <a href="#">营销中心</a>
                 <a href="#">廉正举报</a>
@@ -739,7 +739,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 
     <script src="js/jquery_1.9.js"></script>
-
     <script src="js/main.js"></script>
     <script src="js/img-show.js"></script>
 </body>

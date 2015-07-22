@@ -31,16 +31,17 @@ String password1=request.getParameter("pass1");
 String head=request.getParameter("touxiang");
 
   UsersDao usersDao=new UsersDaoImpl();
- 
- 
+  Users users1=usersDao.findUsers(name);
+  if(users1.getName()!=null){
+  out.print("<script>alert('对不起该用户以被注册');location.href='pinhongzhuce.jsp'</script>");
+ }else{
 Users users=new Users();
 users.setName(name);
 users.setPass(password);
 users.setPass(password1);
-users.setHead(head);
+users.setHead("img/"+head);
 users.setRole(1);
-
-    int i=usersDao.addUsers(users);   
+   int i=usersDao.addUsers(users);  
       
   if(password.equals("password1")){
   if(i==1){
@@ -53,19 +54,8 @@ users.setRole(1);
   }else{
      request.getRequestDispatcher("pinhongdenglu.jsp").forward(request,response);
   }
-  List list=usersDao.findList();
- for(int j=0;j<list.size();j++){
-  Users userss=(Users)list.get(j);
-  
- if(name.equals(userss.getName())){
- request.getRequestDispatcher("pinhongzhuce.jsp").forward(request,response); 
- }else{
- request.getRequestDispatcher("pinhongdenglu.jsp").forward(request,response);
- }
-   
+}
     %>
-    <%
-    }
-  %>
+
   </body>
 </html>

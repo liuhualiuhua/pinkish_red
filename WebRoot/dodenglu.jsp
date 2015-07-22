@@ -42,7 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    
    
    if(users.getUserId()!=0){
-   session.setAttribute("user",users);
+      session.setAttribute("user",users);
    		Cart cart = (Cart) session.getAttribute("cart");
 		if (cart != null && cart.calTotal() > 0.0) {
 			ItemDao itemDao = new ItemDaoImpl();

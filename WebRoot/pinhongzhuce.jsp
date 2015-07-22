@@ -199,18 +199,18 @@ return true;
 <form action="dozhuce.jsp" onsubmit="return cheZong()" method="post">
 <table width="85%" border="0" align="center" cellpadding="0" cellspacing="0" bordercolor="#0099FF" bgcolor="#00CCFF" class="qq">
   <tr>
-    <td height="67" align="center" valign="middle"><span class="STYLE20">品红网免费注册</span></td>
+    <td height="30" align="center" valign="middle"><span class="STYLE20">品红网免费注册</span></td>
   </tr>
   <tr>
-    <td height="73" align="center">&nbsp;用户名：
+    <td height="30" align="center">&nbsp;用户名：
       <input type="text" id="name" name="name"/></td>
   </tr>
   <tr>
-    <td height="77" align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;密码:
+    <td height="30" align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;密码:
       <input type="password" id="box" name="pass"/></td>
   </tr>
   <tr>
-    <td height="64" align="center">确认密码:
+    <td height="30" align="center">确认密码:
       <input type="password" id="queren" name="pass1"/></td>
   </tr>
   <tr>
@@ -219,18 +219,18 @@ return true;
     </td>
   </tr>
   <tr>
-    <td align="center"><img src="img/1.jpeg"><input name="touxiang" type="radio" value="1.jpeg">
-    <img src="img/2.jpeg"><input name="touxiang" type="radio" value="2.jpeg">
-    <img src="img/3.jpeg"><input name="touxiang" type="radio" value="3.jpeg">
-    <img src="img/4.jpeg"><input name="touxiang" type="radio" value="4.jpeg">
+    <td align="center"><img src="img/1.jpeg" width="50" height="50"  ><input name="touxiang" type="radio" value="1.jpeg">
+    <img src="img/2.jpeg" width="50" height="50" ><input name="touxiang" type="radio" value="2.jpeg">
+    <img src="img/3.jpeg" width="50" height="50" ><input name="touxiang" type="radio" value="3.jpeg">
+    <img src="img/4.jpeg" width="50" height="50" ><input name="touxiang" type="radio" value="4.jpeg">
     </td>
   </tr>
   <tr>
     <td align="center">
-    <img src="img/5.jpeg"><input name="touxiang" type="radio" value="5.jpeg">
-    <img src="img/6.jpeg"><input name="touxiang" type="radio" value="6.jpeg">
-    <img src="img/7.jpeg"><input name="touxiang" type="radio" value="7.jpeg">
-    <img src="img/8.jpeg"><input name="touxiang" type="radio" value="8.jpeg">
+    <img src="img/5.jpeg" width="50" height="50" ><input name="touxiang" type="radio" value="5.jpeg">
+    <img src="img/6.jpeg" width="50" height="50" ><input name="touxiang" type="radio" value="6.jpeg">
+    <img src="img/7.jpeg" width="50" height="50" ><input name="touxiang" type="radio" value="7.jpeg">
+    <img src="img/8.jpeg" width="50" height="50" ><input name="touxiang" type="radio" value="8.jpeg">
 	</td>
   </tr>
   
